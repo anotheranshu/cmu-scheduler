@@ -12,6 +12,9 @@ PROBLEM_VALUE = 5
 ACTIVITY_VALUE = 1
 GROUP_SIZE = 4
 
+def i_list_to_CSL(l):
+	",".join(map(lambda n: str(n), l))
+
 def diff(a, b):
 	b = set(b)
 	return [aa for aa in a if aa not in b]
@@ -286,4 +289,10 @@ def retroactive_last_problem():
 			studentgroup.save()
 
 def import_courses():
-	json.loads
+	data = json.loads(open(settings.PROJECT_PATH + "/schedule/static/data/courses.json"))
+	for course in data:
+		dcourse = Course(course_id=course.courseID, tree_type=course.treeType, is_starter=course.isStarter, prereq_indices=i_list_to_CSL(course.prereqIndices), postreq_indices=i_list_to_CSL(course.postreqIndices), description=course.description, node_id=course.nodeID, title=course.title)
+		dcourse.save()
+
+	for course in Course.objects.all():
+		print course

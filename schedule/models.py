@@ -15,7 +15,9 @@ class Course(models.Model):
 	postreq_indices = models.CommaSeparatedIntegerField(max_length=150)
 	description = models.TextField(max_length=9001)
 	node_id = models.IntegerField(primary_key=True)
-	course_name = models.CharField(max_length=200)
+	title = models.CharField(max_length=200)
+	def __unicode__(self):
+		return (self.course_id + ": " + self.title)
 
 class StudentGroup(models.Model):
 	name = models.CharField(max_length=100)
