@@ -14,7 +14,9 @@ ACTIVITY_VALUE = 1
 GROUP_SIZE = 4
 
 def i_list_to_CSL(l):
-	",".join(map(lambda n: str(n), l))
+	if len(l) = 0:
+		return ""
+	return (",".join(map(lambda n: str(n), l)))
 
 def diff(a, b):
 	b = set(b)
