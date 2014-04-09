@@ -290,9 +290,7 @@ def retroactive_last_problem():
 			studentgroup.save()
 
 def import_courses():
-	print settings.PROJECT_PATH
 	raw_json = open(settings.PROJECT_PATH + "/schedule/static/data/courses.json")
-	print raw_json.read()
 	data = json.loads(raw_json)
 	for course in data:
 		dcourse = Course(course_id=course.courseID, tree_type=course.treeType, is_starter=course.isStarter, prereq_indices=i_list_to_CSL(course.prereqIndices), postreq_indices=i_list_to_CSL(course.postreqIndices), description=course.description, node_id=course.nodeID, title=course.title)
