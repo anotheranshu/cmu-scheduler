@@ -13,7 +13,7 @@ class Course(models.Model):
 	is_starter = models.BooleanField(default=False)
 	prereq_indices = models.CommaSeparatedIntegerField(max_length=150)
 	postreq_indices = models.CommaSeparatedIntegerField(max_length=150)
-	description = models.TextField(max_length=9001)
+	description = models.CharField(max_length=9001)
 	node_id = models.IntegerField(primary_key=True)
 	title = models.CharField(max_length=200)
 	def __unicode__(self):
