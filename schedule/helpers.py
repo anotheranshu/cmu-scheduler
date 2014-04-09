@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from schedule.models import *
 from django.utils import timezone
 import datetime
-import problem_checks
 import random
 from django.conf import settings
 
