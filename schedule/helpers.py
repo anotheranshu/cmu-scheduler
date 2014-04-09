@@ -295,9 +295,8 @@ def import_courses():
 	raw_json = (open(settings.PROJECT_PATH + "/schedule/static/data/courses.json")).read()
 	data = json.loads(raw_json)
 	for course in data:
-		print course.keys()
-		print course["description"]
-		dcourse = Course(course_id=course["courseId"], tree_type=course["treeType"], is_starter=course["isStarter"], prereq_indices=i_list_to_CSL(course["prereqIndices"]), postreq_indices=i_list_to_CSL(course["postreqIndices"]), description=course["description"], node_id=course["nodeId"], title=course["title"])
+		mydescription = course.get("description", default="")  
+		dcourse = Course(course_id=course["courseId"], tree_type=course["treeType"], is_starter=course["isStarter"], prereq_indices=i_list_to_CSL(course["prereqIndices"]), postreq_indices=i_list_to_CSL(course["postreqIndices"]), description=mydescription, node_id=course["nodeId"], title=course["title"])
 		dcourse.save()
 
 	for course in Course.objects.all():
