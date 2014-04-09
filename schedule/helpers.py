@@ -14,7 +14,7 @@ ACTIVITY_VALUE = 1
 GROUP_SIZE = 4
 
 def i_list_to_CSL(l):
-	if len(l) = 0:
+	if len(l) == 0:
 		return ""
 	return (",".join(map(lambda n: str(n), l)))
 
