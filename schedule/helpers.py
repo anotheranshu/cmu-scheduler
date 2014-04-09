@@ -5,6 +5,7 @@ from django.utils import timezone
 import datetime
 import random
 from django.conf import settings
+import json
 
 DAILY_SUBMISSION_MAX = 5
 PROBLEM_VALUE = 5
@@ -283,3 +284,6 @@ def retroactive_last_problem():
 		if finished:
 			studentgroup.discovered_problems = studentgroup.discovered_problems + " 10"
 			studentgroup.save()
+
+def import_courses():
+	json.loads

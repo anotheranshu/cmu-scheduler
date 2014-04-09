@@ -7,6 +7,16 @@ def problem_field_to_list(myfield):
 
 # Create your models here.
 
+class Course(models.Model):
+	course_id = models.CharField(max_length=10)
+	tree_type = models.CharField(max_length=10)
+	is_starter = models.BooleanField(default=False)
+	prereq_indices = models.CommaSeparatedIntegerField(max_length=150)
+	postreq_indices = models.CommaSeparatedIntegerField(max_length=150)
+	description = models.TextField(max_length=9001)
+	node_id = models.IntegerField(primary_key=True)
+	course_name = models.CharField(max_length=200)
+
 class StudentGroup(models.Model):
 	name = models.CharField(max_length=100)
 	tags = models.CharField(max_length=1000)
