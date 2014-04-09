@@ -1,0 +1,60 @@
+{% extends "problembase.html" %}
+{% load staticfiles %}
+
+{% block title %} Your Mysterious Friend {% endblock %}
+
+{% block content %}
+You've got a new buddy: Pigwidgeon! But he just flies away. Fortunately, a couple of hours later, he's back! And with him is a yellowed letter and a VERY long parchment chock full of goobledegook. Opening up the letter, you read:
+    <br /> <br />
+    Welcome to Hogwarts! Though the term has hardly begun, word has gotten to me that you are among the brightest pupils ever to have arrived here. I therefore need your help with a number of problems that, in a manner of speaking, constitute my current research. I assure you that itâ€™s not the boring kind of research, though: between you and me, thereâ€™s quite a lot at stake. Unfortunately, I canâ€™t take the chance of revealing my identity in this letter. Please follow the instructions below to contact me; I will then explain to you exactly where I request assistance.
+    <br /> <br />
+    From my secret study of Ancient Runes, I found that three thousand years ago, witches and wizards have already invented a â€œMagical Ubiquitous Machineâ€ (know as MUM) that responds to a set of spells. So instead of recording the original message, often times witches or wizards just write down a series of letters representing the spells to reconstruct the message. This caused Voldemort a lot of trouble during his time, since none of the Death Eaters had the brain or patience to build a MUM. Luckily, I managed to unravel this ancient art, and with the help of modern computers, you should be able to build one in no time. This is perfectly secure also during the time of Voldemath fortunately, because Math Eaters are too busy inventing new dark powers to investigate in this ancient art :)
+    <br /> <br />
+    Now what is a MUM? A MUM is mainly just a vertical magically glass tube that can grow longer when needed. An inexhaustible stock of miniature Hippogriff that fits in the tube are also required. There is also a tiny farm that fits only one hippogriff. Some rules:
+    <br />
+    <ol>
+      <li>The tube and tiny farm both start off empty. </li>
+      <li>The mini hippogriffs all start off very small, and you can feed them tiny ferrets for them to grow. You can feed each hippogriff at most 255 times in total, and the size of the hippogriffs are proportional to the number of times it is fed. </li>
+      <li>The only hippogriff you can take out from the tube is the one on the very bottom. The only place you can put in more hippogriffs is the very top. Hippogriffs donâ€™t secretly change their position with others when they are in the tube. </li>
+      <li>You can only feed the hippogriffs if it is on the very bottom (not necessarily taken out) or if it is just taken out. </li>
+      <li>The hippogriff that you have taken out remains standing on a tiny farm until you decide to put it back. if two hippogriffs are taken out at the same time, they would fight for the tiny farm and you are doomed. </li>
+      <li>There is always a â€œHead Hippogriffâ€ among the ones in the tube (including the one on the tiny farm). When you first put a Hippogriff in, it automatically becomes the Head. Later on you may reassign the Head Hippogriff according to the instructions. Since the Head Hippogriff is very proud, if you feed a hippogriff other than the Head, the Head hippogriff will destroy your glass tube and you are doomed. </li>
+      <li>There is also an external stand for hippogriffs. Once there are too many hippogriffs to deal with, the spell writer might choose to put all the hippogriffs currently in the glass tube onto the stand in order. This stand is super comfy for the hippogriffs so they sleep quietly on the stand and you donâ€™t really want to touch it later on :)</li>
+    </ol>
+    <br /><br />
+    Here are the things you can do with your MUM:
+    <br />
+    <ul>
+      <li>Placiando (P): it puts the hippogriff on the tiny farm into the glass tube from top (it wonâ€™t come up if there is no hippogriff on the tiny farm) </li>
+      <li>Clutchulus (C): it takes a hippogriff out of the tube from the bottom onto the tiny farm (it wonâ€™t come up if there is already a hippogriff on the tiny farm) </li>
+      <li>Inducirolis (I): it puts a new hippogriff into the glass tube from top </li>
+      <li>Norishio (N): it feeds the bottom most hippogriff in the tube if it is the Head Hippogriff (if not, do nothing) </li>
+      <li>Meadolotum (M): it feeds the hippogriff in the tiny farm if it is the Head Hippogriff (if not, do nothing) </li>
+      <li>Outstripusempra (O): it makes the hippogriff above the current Head Hippogriff the new Head Hippogriff. If the Head Hippogriff is currently in the tiny farm, then the bottom most Hippogriff in the glass tube would become the new Head. If there is only one hippogriff in the system then nothing happens. If Outstripusempra is required when the Head is on the top of the tube, it wraps around to the one on the tiny farm if there is one, if not, it wraps around to the bottom of the tube. </li>
+      <li>Jumbulamarae (J): it is equivalent to performing a Clutchulus then a Placiando </li>
+      <li>Flushinomi (F): It â€œflushesâ€ all the hippogriffs in the glass tube onto the stand in order. </li>
+    </ul>
+    <br /> <br />
+    Additionally, for each spell, there might be a number following it to indicate how many times it needs to be performed in a row (otherwise the spell is performed once). We remind ourselves the numbering system of Ancient Runes:
+    <br /> <br />
+    0 &nbsp; 1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5 &nbsp; 6 &nbsp; 7 &nbsp; 8 &nbsp; 9 <br/>
+    d &nbsp; u &nbsp; g &nbsp; r &nbsp; w &nbsp; q &nbsp; s &nbsp; k &nbsp; a &nbsp; h
+    <br />
+    <img src="{% static 'runes.jpg' %}" width="481px" height="333px">
+    <br /> <br />
+    For example, 251 would just be gqu. If I want the spell Jumbulamarae to be performed 251 times then Clutchulus 0 times then Inducirolis 8 times, the spell sheet would look like this â€œJgquCdIa". (friendly reminder that 7 is k instead of u and 4 is w instead of f)
+    <br /> <br />
+    An example spell sheet would look like this:
+    <br /><br />
+    IONkuCMqPIONswJuNaqCMrgPIOJgNskCMwgPIOJgNgrkJuNrdCMqdPJrNgCMghPIONgquJwNgCMugPJwNaCMhrPIOJrNggaJgNgqCMrPJqNwCMuPIOJsNwCMsPF
+    <br /> <br />
+    Decoding this should give you a very familiar spell
+    <br /> <br />
+
+    Decoding <a href="{% url 'dad' %}">this</a> will assure me of your identity.  And your competence. <br/>
+    I do apologize for the secrecy -- but this is a matter of utmost importance. Your contact is eagerly awaited.
+    <br /> <br />
+    Good luck,
+    <br />
+    A Friend
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "problembase.html" %}
+
+{% block title %} Mathsemagical Journey of the Soul {% endblock %}
+
+{% block content %}
+    Finally, you have destroyed all the Horcruxes! You head back to Hogwarts to talk to Klausledore. Hopefully he can give you some advice on how to fight Voldemath himself. 
+    <br /> <br />
+    "Nobody knows how to defeat Voldemath," are the encouraging words from Klausledore. "If you're Abel I will be impressed. By the way, he's out behind Hogwarts, working in the hut. Something about fewre students on his WiFi."
+    <br /><br />
+    At least you know where to find him! Not worrying too much about battle tactics, you head out to Voldemath's hut.
+    <br /><br />
+    Opening the door, you find a cozy chamber, shabbily lit except for a great desk and glowing Windows. Behind this desk sits a man in spectacles with tousled hair. All around lies a library's worth of tomes and pages. As you approach the desk, the man looks up.
+    <br /><br />
+    "Hi," he says. "I'm Voldemath. You're here to kill me, right?"
+    <br /><br />
+    You're not quite sure what to say. But before you can open your mouth Voldemath says, "Well, well. So you're the pesky bugger who wrecked my Horcruxes. You know, it's not exactly comfortable when a piece of your soul gets destroyed. I've been waiting to meet you, so I could repay you the favor. I doubt that your math skills live up to your intrusiveness!"
+    <br /><br />
+    Voldemath shuffles the papers on his desk, performing the universally acknowledged call for a proof battle. This call is magically binding, and you cannot refuse. Nor would you. Not with the wellbeing of all mathsemagicians, and possibly even the world, resting on this very moment!
+    <br /><br />
+    It is widely known that Klausledore and Voldemath are some of the greatest mathsemagicians of our time. Before, them, though, there were many more. These historical mathsemagicians have been a focus of your studies at Hogwarts. Each historical mathsemagician has a "rigor rating," a natural number at most 1000. Incidentally, Klausledore has a rigor rating of 647, while Voldemath has a rigor rating of 858. You don't have a rigor rating since you're but a wee lad.
+    <br /><br />
+    The proof battle will proceed as follows. First, you pick 9 mathsemagicians to invoke on your proof. Then Voldemath picks 9 mathsemagicians to invoke against you. Neither you nor Voldemath can invoke a mathsemagician that has been invoked in any previous step of the proof battle. You then pick 9 more, Voldemath picks 9 more, and so on. The next stage of the proof battle begins when neither you nor Voldemath can recall 9 more mathsemagicians that have not yet been invoked. At this point, you pick a mathsemagician who has not yet been invoked, and Voldemath picks a mathsemagician who has not yet been invoked and is not your mathsemagician. Your "net rigor" is the difference between your mathsemagician's rigor rating and Voldemath's.
+    <br /><br />
+    You want your proofs to pack a serious punch, so you try and achieve the best net rigor. What is the best net rigor you can achieve?
+    <br /><br />
+    The final stage of the proof battle is the most vicious. Taking turns, the provers erase the contributions of mathsemagicians who have been invoked before. As challenger Voldemath goes first. When there are only 2 mathsemagicians remaining in the proof, if the sum of the rigors is a multiple of 5, you win the battle! Otherwise, Voldemath wins. Note that you can erase the contributions of the mathsemagicians used in the calculation of net rigor.
+    <br /><br />
+    You've studied 1001 historical mathsemagicians. Of these mathsemagicians, you know exactly one mathsemagician of each rigor rating. Coincidentally, since you are a good student, you and Voldemath know exactly the same set of historical mathsemagicians.
+    <br /><br />
+    Obviously Voldemath will play optimally to minimize your net rigor, and then to try to win the battle. Can you win this proof battle?
+    <br /><br />
+    Submit your answer as the concatenation of two strings AB, where A is the best net rigor you can achieve, and B is "Y" if you can win and "N" if you cannot.
+    <br /><br />
+    Unfortunately, due to the highly convoluted and delicate nature of a proof battle, you cannot submit more than twice per day.
+{% endblock %}

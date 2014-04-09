@@ -1,0 +1,18 @@
+{% extends "problembase.html" %}
+{% load staticfiles %}
+
+{% block title %} The Biwizard Cup {% endblock %}
+
+{% block content %}
+The Biwizard Tournament is happening soon, and Klausledore suspects that the prize is not only a fabulous treasure, but a fabulous treasure that is secretly a Horcrux. However, the Biwizard Tournament is not quite the same as the Triwizard Tournament. Instead of wizard students, the competitors are binary strings, and there are only two trials, the following two mazes:
+    <br /><br />
+    <h2>Maze 1:</h2><br />
+    <img src="{% static 'mazes/maze1.jpg' %}" alt="the first Biwizard maze" />
+    <br /><br />
+    <h2>Maze 2:</h2><br />
+    <img src="{% static 'mazes/maze2.jpg' %}" alt="the second Biwizard maze" />
+    <br /><br />
+    Binary strings begin in room q0, and are then read in character by character and move correspondingly; they make it through the maze if they end up in a room with an interior circle (q1 in maze 1 and q0 in maze 2) after the entire string is read. For example, if the string 011 was put into maze 1, it would start in q0, then go to q1 based on the 0, then go to q3 based on the first 1, then go back to q1 based on the second 1 - since the full string had been read and it ended up in q1, 011 is a string that would make it through maze 1. You want your string to escape the maze first. If you want the smallest positive number whose binary representation will make it through the two mazes, which number should you pick?
+    <br /><br />
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %}Activities{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'quest.css' %}" />
+</head>
+<body>
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</form>
+	</div>
+</body>
+</html>

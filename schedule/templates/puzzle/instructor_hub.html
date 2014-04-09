@@ -1,0 +1,26 @@
+{% extends "puzzle/base.html" %}
+
+{% block title %}
+Instructor Hub
+{% endblock %}
+
+{% block content %}
+
+Check in a group by entering any of its members' andrew IDs.
+
+<form method="post" action="{% url 'checkin' %}">
+{% csrf_token %}
+
+{% for activity in activities %}
+
+<input type="radio" name="activity" value="{{ activity.id }}" {% ifequal user.student.andrew activity.instructor %} checked {% endifequal %} /> {{ activity.instructor }} <br>
+
+{% endfor %}
+<input type="text" name="andrew"/>
+<input type="submit" value="submit"/>
+</form>
+<form method="post" action="{% url 'logout' %}">
+{% csrf_token %}
+<input type="submit" value="logout"/>
+</form>
+{% endblock %}

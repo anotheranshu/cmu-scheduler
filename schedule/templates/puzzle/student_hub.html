@@ -1,0 +1,56 @@
+{% extends "puzzle/base.html" %}
+
+{% block title %}
+Defeat Voldemath | Quests
+{% endblock %}
+
+{% block content %}
+<div id="banner">YOUR CURRENT QUESTS</div>
+<div id="message">
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
+<form method="post" action="{% url 'logout' %}">
+{% csrf_token %}
+<input class="right" type="submit" value="logout"/>
+</form></div>
+{% for problem in current_problems %}
+	<a href="{% url 'problem' problem.id %}">
+	<span class="preview">
+      <h3>{{ problem.title }}</h3>
+      <hr />
+      {{ problem.lead_text }}
+    </span>
+    </a>
+{% endfor %}
+{% for problem in current_activities %}
+	<a href="{% url 'activity' problem.id %}">
+	<span class="preview">
+      <h3>{{ problem.title }}</h3>
+      <hr />
+      {{ problem.lead_text }}
+    </span>
+    </a>
+{% endfor %}
+{% for problem in completed_problems %}
+  <a href="{% url 'problem' problem.id %}">
+  <span class="preview inactive">
+      <h3>{{ problem.title }}</h3>
+      <hr />
+      {{ problem.lead_text }}
+    </span>
+    </a>
+{% endfor %}
+{% for problem in completed_activities %}
+  <a href="{% url 'activity' problem.id %}">
+  <span class="preview inactive">
+      <h3>{{ problem.title }}</h3>
+      <hr />
+      {{ problem.lead_text }}
+    </span>
+    </a>
+{% endfor %}
+{% endblock %}
+

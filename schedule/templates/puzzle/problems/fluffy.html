@@ -1,0 +1,34 @@
+{% extends "problembase.html" %}
+{% load staticfiles %}
+
+{% block title %} Fluffy Archipelagos {% endblock %}
+
+{% block content %}
+Klausledore's research has helped you along, but you're about out of ideas. You find yourself pacing the 7th floor. Realizing that you absolutely need to find another Horcrux, but not knowing where to go, you simply meander about until suddenly, you notice something out of the corner of your eye that you hadnâ€™t seen there before: a door.
+    <br /><br />
+    Now you had paced this corridor at least twice before, so you should have noticed it. That is to say, this door was rather intricately carved, more so than the doors in the rest of the school. Curiosity getting the better of you, you enter the room. In most muggle schools, this would not be a horrible thing to do; but this is Hogwarts. You enter and find yourself standing in front of what you could only describe as Cerberus. Why anyone would name him Fluffy, as is listed on his collar, is beyond you. In any case, looking at him more closely, you notice he wants to play. His panting, his jumping, and his wiggling butt are more than enough to convince you of that. But knowing that you have a more important task, you turn around to leave. Thankfully, you donâ€™t actually take a step forward.
+    <br /><br />
+    In front of you is a large ravine with a bunch of floating islands. If you had stepped forward, you would probably have fallen to your death. You look on the ground and notice that you are now standing on an island with yourself and Fluffy. The island also seems to be connected to others by some very narrow and precarious bridges. You seem to immediately understand the rules of the game he wants to play. Seeing as you canâ€™t really leave yet, you might as well join him.
+    <br /><br />
+    <ul>
+        <li>Fluffy always lets you start first and choose an island.</li>
+        <li>Starting with Fluffy, you alternate choosing a bridge that is connected to the current island.</li>
+        <li>Once a bridge is chosen, the current island starts to fall and all other bridges connected to the current island disappear, so you must move together to the next island. </li>
+    </ul>
+    <br /><br />
+    As you play this game, you suddenly arrive on an island with no bridges. Thankfully, itâ€™s Fluffyâ€™s turn to choose, not yours. You turn around, and you can make out what looks like the exit -- and the Horcrux youâ€™ve been searching for!!!
+    <br /><br />
+    Unfortunately, they are really far away. It looks like each time you play this game with Fluffy and Fluffy loses, your goal gets closer. You see that there are 8 different game boards and, realizing that this isnâ€™t a very safe game, you had better figure out which boards you want to play on. Fluffy has played this game an awful lot (he obviously didnâ€™t have much else to do) so he always plays perfectly - if he can win, he will.
+    <br /><br />
+    For each game board, assign a 0 if you think you can win and a 1 if you think Fluffy would win. Put bits together to get a bitstring. That is the solution.
+    <br /><br />
+    In other words, if you think Fluffy would win on boards 1, 3, 5, and 6, then the bitstring for this would be â€œ10101100â€. Choose wisely if you want that Horcrux.
+    <br /><br />
+
+    <h2>Gameboards</h2><br />
+    {% for i in arr %}
+    <h2>{{ forloop.counter }}:</h2><br />
+    <img src="{% static i %}" alt="Fluffy board number {{ forloop.counter }}" />
+    <br /><br />
+    {% endfor %}
+{% endblock %}

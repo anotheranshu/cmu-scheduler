@@ -1,0 +1,47 @@
+{% extends "problembase.html" %}
+
+{% block title %} Hittin' the Books {% endblock %}
+
+{% block content %}
+ High-ranking Math Eaters are sure to know something about Voldemath's Horcruxes, and Klausledore has had the bright idea to identify them by keeping track of which wizards and witches use high-powered Dark magic. Ringsley Shacklebolt, your friend in the Department of Magical Law Enforcement, has clued you in on some recent suspicious magical activity.
+    <br /><br />
+    However, you don't know exactly what all of the spells do, and some of them are certainly too dangerous to experiment with, so you'll have to look through your handy-dandy <a href="{% url 'spellarchive' %}">archive of historical magical duels. </a>
+    <br /><br />
+    This massive tome holds records of duels in this format:
+    <br />
+    <div class="quote">
+    Duelist A, Duelist B<br>
+    Victor [Duelist A, Duelist B, or tie]<br>
+    Spell 1a Spell 2a Spell 3a Spell 4a ......<br>
+    Spell 1b Spell 2b Spell 3b Spell 4b ......
+    </div>
+    <br />
+    <br />
+
+    During the nth "time step" of the duel, duelists A and B 
+simultaneously cast spells 1a and 1b respectively. If neither one has 
+previously gained the upper hand, then whoever casts the stronger spell 
+then gains the upper hand. No spell is exactly equal in strength to more
+ than one other spell. Whoever gains the upper hand will go on to win 
+the duel, but not necessarily immediately.
+    <br><br>
+    Order all the spells that appear in the archive from strongest to 
+weakest and take the first character of each one (no delimiters 
+necessary). If two spells are tied, order them alphabetically.  This is your answer.
+    <br><br>
+    <span class="italic">Example: if you are given three spells and find
+ that the order of their strengths is Reducto &gt; Stupefy &gt; 
+Alohomora, then your answer should be the string "RSA" (please remember to capitalize).</span>
+    <br><br>
+    <br /><br />
+    Useful facts:<br />
+    <ul>
+      <li>Duelists' names may contain any character except for the comma.</li>
+      <li>Fortunately, no duelist is named "tie".</li>
+      <li>Spell names contain only alphabetic characters. Spells are separated by spaces.</li>
+      <li>Each duel's record takes up four lines and is followed by a blank line.</li>
+      <li>If spell A is stronger than spell B and spell B is equal in strength to spell C, then spell A is stronger than spell C.</li>
+      <li>If two distinct spells are equal in strength, there is at least one duel in which they are used against each other and the duel ultimately ends in a tie.</li>
+    </ul>
+
+{% endblock %}
