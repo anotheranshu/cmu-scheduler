@@ -297,7 +297,7 @@ def import_courses():
 	for course in data:
 		mydescription = course.get("description", "")
 		mytitle = course.get("title", "")  
-		dcourse = Course(course_id=course["courseId"], tree_type=course["treeType"], is_starter=course["isStarter"], prereq_indices=i_list_to_CSL(course["prereqIndices"]), postreq_indices=i_list_to_CSL(course["postreqIndices"]), description=mydescription, node_id=course["nodeId"], title=course["title"])
+		dcourse = Course(course_id=course["courseId"], tree_type=course["treeType"], is_starter=course["isStarter"], prereq_indices=i_list_to_CSL(course["prereqIndices"]), postreq_indices=i_list_to_CSL(course["postreqIndices"]), description=mydescription, node_id=course["nodeId"], title=mytitle)
 		dcourse.save()
 
 	for course in Course.objects.all():
