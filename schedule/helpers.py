@@ -6,6 +6,7 @@ import datetime
 import random
 from django.conf import settings
 import json
+from pprint import pprint
 
 DAILY_SUBMISSION_MAX = 5
 PROBLEM_VALUE = 5
@@ -13,7 +14,9 @@ ACTIVITY_VALUE = 1
 GROUP_SIZE = 4
 
 def i_list_to_CSL(l):
-	",".join(map(lambda n: str(n), l))
+	if len(l) == 0:
+		return ""
+	return (",".join(map(lambda n: str(n), l)))
 
 def diff(a, b):
 	b = set(b)
@@ -289,10 +292,12 @@ def retroactive_last_problem():
 			studentgroup.save()
 
 def import_courses():
-	raw_json = open(settings.PROJECT_PATH + "/schedule/static/data/courses.json")
+	raw_json = (open(settings.PROJECT_PATH + "/schedule/static/data/courses.json")).read()
 	data = json.loads(raw_json)
 	for course in data:
-		dcourse = Course(course_id=course.courseID, tree_type=course.treeType, is_starter=course.isStarter, prereq_indices=i_list_to_CSL(course.prereqIndices), postreq_indices=i_list_to_CSL(course.postreqIndices), description=course.description, node_id=course.nodeID, title=course.title)
+		mydescription = course.get("description", "")
+		mytitle = course.get("title", "")  
+		dcourse = Course(course_id=course["courseId"], tree_type=course["treeType"], is_starter=course["isStarter"], prereq_indices=i_list_to_CSL(course["prereqIndices"]), postreq_indices=i_list_to_CSL(course["postreqIndices"]), description=mydescription, node_id=course["nodeId"], title=mytitle)
 		dcourse.save()
 
 	for course in Course.objects.all():
