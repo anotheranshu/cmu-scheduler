@@ -1,7 +1,7 @@
 {% extends "puzzle/base.html" %}
 
 {% block title %}
-Puzzlehunt Login
+Tartan Scheduler Login
 {% endblock %}
 
 {% block content %}
@@ -10,12 +10,16 @@ Puzzlehunt Login
 	{% endif %}
 	<form method="post" role="form" action="{% url 'django.contrib.auth.views.login' %}">
 	{% csrf_token %}
-	<div class="form-group">
-	  <input type="text" placeholder="{{ form.username.label_tag }}" name="{{ form.username }}" class="form-control">
-	</div>
-	<div class="form-group">
-	  <input type="password" placeholder="{{ form.password.label_tag }}" name="{{ form.password }}" class="form-control">
-	</div>
+	<table>
+	<tr>
+	<td>{{ form.username.label_tag }}</td>
+	<td>{{ form.username }}</td>
+	</tr>
+	<tr>
+	<td>{{ form.password.label_tag }}</td>
+	<td>{{ form.password }}</td>
+	</tr>
+	</table>
 	<button class="btn btn-success" id="submit" type="submit" value="login">Sign in</button>
 	<input type="hidden" name="next" value="{{ next }}" />
 	</form>	
