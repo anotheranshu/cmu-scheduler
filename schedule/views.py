@@ -39,6 +39,9 @@ def logout_view(request):
   logout(request)
   return HttpResponseRedirect(reverse('login'))
 
+def about(request):
+  return render(request, 'puzzle/about.html', {})
+   
 def submit(request):
   if (request.user.is_authenticated()):
     problem_num = 0
