@@ -6,12 +6,18 @@ Tartan Scheduler Login
 
 {% block content %}
 
+	<script type="text/javascript">
+	    $(function () {
+	        $("[rel='tooltip']").tooltip();
+	    });
+	</script>
+
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h1>Welcome to Tartan Scheduler!</h1>
         <p>This is a website for CMU students to plan their course schedulers. Sign in with your andrewID and password to get started.</p>
-        <p><a class="btn btn-primary btn-lg" id="learnmore" role="button">Learn more &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" id="learnmore" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
 
@@ -42,31 +48,31 @@ Tartan Scheduler Login
 	<div class="col-md-4">
 	  <h2>Plan your major courses</h2>
 	  <p></p>
-	  <p><a class="btn btn-default" id="firstbutton" href="#" role="button">View details &raquo;</a></p>
+	  <p><a class="btn btn-default" id="firstbutton" href="#" role="button" rel="tooltip">View details &raquo;</a></p>
 	</div>
 	<div class="col-md-4">
 	  <h2>Pick your professors</h2>
 	  <p></p>
-	  <p><a class="btn btn-default" id="secondbutton" href="#" role="button">View details &raquo;</a></p>
+	  <p><a class="btn btn-default" id="secondbutton" href="#" role="button" rel="tooltip">View details &raquo;</a></p>
 	</div>
 	<div class="col-md-4">
 	  <h2>Focus on your favorite classes</h2>
 	  <p></p>
-	  <p><a class="btn btn-default" id="thirdbutton" href="#" role="button">View details &raquo;</a></p>
+	  <p><a class="btn btn-default" id="thirdbutton" href="#" role="button" rel="tooltip">View details &raquo;</a></p>
 	</div>
 	</div>
 
     <script type="text/javascript">
     $(document).ready(function(){
-    alert("hi");
-    $('#learnmore').on('click', function (e) {
-      alert("hi");
-      window.location.href = "{% url 'about' %}";});
-    $('#firstbutton').tooltip();
-    $('#firstbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'We\'ll retrieve your completed and required courses from CMU Academic Audit once you login. We only recommend semester schedules that allow you to complete your degree on time!'});
-    $('#secondbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'View Faculty Course Evaluations (FCEs) for previous semester\'s courses.  Filter your suggested schedules based on your favorite (or maybe not-so-favorite) profs!'});
-    $('#secondbutton').tooltip();
-    $('#thirdbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.'});
+	    alert("hi");
+	    $('#learnmore').on('click', function (e) {
+	      alert("hi");
+	      window.location.href = "{% url 'about' %}";});
+	    //$('#firstbutton').tooltip();
+	    $('#firstbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'We\'ll retrieve your completed and required courses from CMU Academic Audit once you login. We only recommend semester schedules that allow you to complete your degree on time!'});
+	    $('#secondbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'View Faculty Course Evaluations (FCEs) for previous semester\'s courses.  Filter your suggested schedules based on your favorite (or maybe not-so-favorite) profs!'});
+	    //$('#secondbutton').tooltip();
+	    $('#thirdbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.'});
     });
     </script> 
 {% endblock %}
