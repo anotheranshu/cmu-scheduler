@@ -8,13 +8,15 @@ from django.core.urlresolvers import reverse
 from schedule.models import *
 from django.utils import simplejson
 from schedule.helpers import *
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+import scripts/audit as audit
+import scripts/authenticate as authenticate
+
 
 def index(request, optargs={}):
   user = None
-
 
   if (request.user.is_authenticated()):
     user = request.user
@@ -32,7 +34,7 @@ def index(request, optargs={}):
     completed_activities = map(lambda x: Activity.objects.get(pk=x), problem_field_to_list(user.student.group.solved_activities))
     return render(request, 'puzzle/student_hub.html', {'current_problems': problem_list, 'current_activities': activity_list, 'completed_problems': completed_problems, 'completed_activities': completed_activities})
 
-def login(request):
+def login_view(request):
   return render(request, 'puzzle/login.html', {})
 
 def logout_view(request):
@@ -110,3 +112,14 @@ def display_activity(request, pnum):
     return render(request, 'puzzle/activities/' + Activity.objects.get(pk=activity_num).file_name + '.html', {"activity": activity_num})
   else:
     return HttpResponseForbidden()
+
+def auth_user(request):
+  myandrew = request.POST["username"]
+  password = request.POST["password"]
+  if authenticate.myauth(myandrew, password) is not None:
+    if len(list(Student.objects.filter(andrew=myandrew))) is 0:
+      make_student(myandrew, password)
+    user = authenticate(user=myandrew, password=myandrew)
+    login(request, user)
+  
+      

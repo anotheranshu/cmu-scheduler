@@ -34,6 +34,14 @@ class StudentGroup(models.Model):
 		return (num in problem_field_to_list(self.solved_activities))
 
 class Student(models.Model):
+	user = models.OneToOneField(User)
+	andrew = models.CharField(max_length=100)
+	taken_courses = models.CommaSeparatedIntegerField(max_length=300)
+	majors = models.CommaSeparatedIntegerField(max_length=100)
+	sems_left = models.IntegerField(default=8)
+	
+
+'''class Student(models.Model):
 	is_instructor = models.BooleanField(default=False)
 	user = models.OneToOneField(User)
 	andrew = models.CharField(max_length=100)
@@ -52,7 +60,7 @@ class Student(models.Model):
 	def has_solved_problem(self, num):
 		return (num in problem_field_to_list(self.solved_problems))
 	def has_solved_activity(self, num):
-		return (num in problem_field_to_list(self.solved_activities))
+		return (num in problem_field_to_list(self.solved_activities)) '''
 
 class Activity(models.Model):
 	title = models.CharField(max_length=500)
