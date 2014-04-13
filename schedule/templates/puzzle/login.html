@@ -25,7 +25,7 @@ Tartan Scheduler Login
 	{% if form.errors %}
 		<p>Your username and password didn't match. Please try again.</p>
 	{% endif %}
-		<!-- TODO: Change following line back once auth_user works: <form method="post" role="form" action="{% url 'auth_user' %}">-->
+		<!-- TODO: Change following line back to url 'auth_user' once it works:-->
 		<form method="post" role="form" action="{% url 'django.contrib.auth.views.login' %}">
 			{% csrf_token %}
 			<table>
