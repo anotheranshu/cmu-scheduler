@@ -3,7 +3,6 @@ from sets import Set
 from authenticate import authenticate
 from datetime import datetime
 from urllib import urlencode
-from icalendar import Calendar, Event, UTC
 import re
 import json
 
