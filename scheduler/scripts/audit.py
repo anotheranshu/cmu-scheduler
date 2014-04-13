@@ -53,6 +53,8 @@ def get_all_courses():
     d = pq(classes)
     major_courses = Set([])
     all_courses = Set([])
+    classlevel = ""
+    major = -1
     for pre in d('pre'):
         data = d(pre).text()
         for line in data.split('\n'):
@@ -66,10 +68,24 @@ def get_all_courses():
             	if nonmajor_course is not None:
             		course = nonmajor_course.group(1)
             		all_courses.add(course)
+                else:
+                    classLevelArray = line.split("CLASSLEVEL:")
+                    if len(classLevelArray) > 1: #found class level
+                        classlevel = classLevelArray[1]
 
-                    
-    print major_courses
+    majorfile =  params['MajorFile']
+    i = majorfile.find("SCS") 
+    j = majorfile.find("ECE") #might need to change later?
+    if i != -1:
+        major = 0 # CS major
+    elif j != -1:
+        major = 1
+
+    #print major_courses
     print all_courses
-    return major_courses
+    print classlevel
+    print major
+    return [major_courses,classlevel,major]
+    #semesters left and major
 
 get_all_courses()
