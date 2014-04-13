@@ -1,9 +1,12 @@
 import csv
 import json
 from pprint import pprint
+import schedule
+import prereqs as pr
 
 class Class(object):
-	def __init__(self,cid,course_name,hrsPerWeek,numRatings,course_rating,professors,description):
+	def __init__(self,cid,course_name,hrsPerWeek,numRatings,course_rating,
+				professors,description,units,startTime,endTime,prereqs):
 		self.cid = cid
 		self.course_name = course_name
 		self.numRatings = numRatings
@@ -11,6 +14,10 @@ class Class(object):
 		self.course_rating = course_rating
 		self.professors = professors
 		self.description = description
+		self.units = units
+		self.startTime = startTime
+		self.endTime = endTime
+		self.prereqs = prereqs
 
 def updateDict(temp_scs_courses,row):
 	professor = row[2][1:]
@@ -37,11 +44,18 @@ def updateDict(temp_scs_courses,row):
 		else:
 			classProfessors[professor] = (course_rating,1)
 		updateInfo = [currClass[0],currHrsPerWeek,currNumRating+1,
-					  currAvgRating,classProfessors,""]
+					  currAvgRating,classProfessors,"","","","",""]
+
+
+
+
 		temp_scs_courses[cid] = updateInfo
 	else:
 		temp = [course_name,hrsPerWeek,1,course_rating
-				,{professor:(course_rating,1)},""]
+				,{professor:(course_rating,1)},"","","","",""]
+
+				#name,hrsperweek,numratings,course rating,professor,
+				#description, units, startTime, endTime, prereqs
 		temp_scs_courses[cid] = temp
 	return temp_scs_courses
 
@@ -71,15 +85,6 @@ def readSCSFCE():
 				break
 			i = i + 1
 		return temp_scs_courses
-		for key,value in temp_scs_courses.items():
-			cid = key
-			course_name = value[0]
-			hrsPerWeek = value[1]
-			numRatings = value[2]
-			course_rating = value[3]
-			professors = value[4]
-			newCourse = Class(cid,course_name,hrsPerWeek,numRatings,
-								course_rating,professors)
 			#scs_courses.append(newCourse)
 			#json_scs_courses.append(json.dumps(vars(newCourse),sort_keys=True, indent=4))
 		#for currCourse in json_scs_courses:
@@ -93,6 +98,7 @@ def parseJson():
 	#print result
 	#print json.loads(result)
 	courseDict = readSCSFCE()
+	courseDict = schedule.scheduleTimes(courseDict)
 	with open('courses2.json') as json_data:
 		d = json.load(json_data)
     	json_data.close()
@@ -117,8 +123,23 @@ def parseJson():
 		course_rating = value[3]
 		professors = value[4]
 		description = value[5]
+		units = value[6]
+		startTime = value[7]
+		endTime = value[8]
+		prereqs = ""
+		units = ""
+		[scrapeDesc,scrapePreReq,scrapeUnits] = pr.getCourseDescriptionPreReqs(cid,"F14")
+		[scrapeDescS14, scrapePreReqS14,scrapeUnitsS14] = pr.getCourseDescriptionPreReqs(cid,"S14")
+		if (scrapeDesc != ""): #no class for F14
+			prereqs = scrapePreReq
+			description = scrapeDesc		
+		elif (scrapeDescS14 != ""):
+			prereqs = scrapeDescS14
+			description = scrapePreReqS14
+			units = scrapeUnitsS14
 		newCourse = Class(cid,course_name,hrsPerWeek,numRatings,
-							course_rating,professors,description)
+							course_rating,professors,description,
+							units,startTime,endTime,prereqs)
 		#scs_courses.append(newCourse)
 		json_scs_courses.append(json.dumps(vars(newCourse),sort_keys=True, indent=4))
 	for currCourse in json_scs_courses:
