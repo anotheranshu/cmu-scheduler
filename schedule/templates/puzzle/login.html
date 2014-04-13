@@ -15,10 +15,10 @@ Tartan Scheduler Login
       </div>
     </div>
 
+	<div class="container">
 	{% if form.errors %}
 		<p>Your username and password didn't match. Please try again.</p>
 	{% endif %}
-	<p class="tab">
 		<form method="post" role="form" action="{% url 'django.contrib.auth.views.login' %}">
 			{% csrf_token %}
 			<table>
@@ -34,7 +34,7 @@ Tartan Scheduler Login
 			<button class="btn btn-success" id="submit" type="submit" value="login">Sign in</button>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>	
-	</p>
+	</div>
 
 	<div class="container">
 	<!-- Example row of columns -->
@@ -57,9 +57,9 @@ Tartan Scheduler Login
 	</div>
 
     <script type="text/javascript">
+    alert("hi");
     $('#learnmore').on('click', function (e) {
-      window.location.href = "/about.html";});
-    // $('#learnmore').popover({trigger: 'hover', animate: 'true', html: false, content: 'EVERYTHING IS AWESOME'});
+      window.location.href = "{% url 'about' %}";});
     $('#firstbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'We\'ll retrieve your completed and required courses from CMU Academic Audit once you login. We only recommend semester schedules that allow you to complete your degree on time!'});
     $('#secondbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'View Faculty Course Evaluations (FCEs) for previous semester\'s courses.  Filter your suggested schedules based on your favorite (or maybe not-so-favorite) profs!'});
     $('#thirdbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.'});
