@@ -5,11 +5,18 @@ from django.utils import timezone
 import datetime
 import random
 from django.conf import settings
+import json
+from pprint import pprint
 
 DAILY_SUBMISSION_MAX = 5
 PROBLEM_VALUE = 5
 ACTIVITY_VALUE = 1
 GROUP_SIZE = 4
+
+def i_list_to_CSL(l):
+	if len(l) == 0:
+		return ""
+	return (",".join(map(lambda n: str(n), l)))
 
 def diff(a, b):
 	b = set(b)
@@ -283,3 +290,21 @@ def retroactive_last_problem():
 		if finished:
 			studentgroup.discovered_problems = studentgroup.discovered_problems + " 10"
 			studentgroup.save()
+
+def import_courses():
+	raw_json = (open(settings.PROJECT_PATH + "/schedule/static/data/courses.json")).read()
+	data = json.loads(raw_json)
+	for course in data:
+		mydescription = course.get("description", "")
+		mytitle = course.get("title", "")  
+		myid = course.get("courseId", "")
+		mytree = course.get("treeType", "")
+		mystarter = course.get("isStarter", False)
+		myprereq_indices = i_list_to_CSL(course.get("prereqIndices", ""))
+		mypostreq_indices = i_list_to_CSL(course.get("postreqIndices", ""))
+		mynodeid = course["nodeId"] # We *should* fail if there's no node ID.  There is no default value for this.
+		dcourse = Course(course_id=myid, tree_type=mytree, is_starter=mystarter, prereq_indices=myprereq_indices, postreq_indices=mypostreq_indices, description=mydescription, node_id=mynodeid, title=mytitle)
+		dcourse.save()
+
+	for course in Course.objects.all():
+		print course

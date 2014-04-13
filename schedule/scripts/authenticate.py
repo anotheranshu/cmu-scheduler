@@ -4,6 +4,18 @@ from config import *
 import requests
 from pyquery import PyQuery as pq
 
+def myauth(username, password):
+    global USERNAME
+    global PASSWORD
+    USERNAME = username
+    PASSWORD = password
+    try:
+        s = authenticate('https://enr-apps.as.cmu.edu/audit/audit')
+    except KeyError:
+        return None
+            
+    return s.get('https://enr-apps.as.cmu.edu/audit/audit').content
+
 def authenticate(url):
     ''' queries an asset behind CMU's WebISO wall
     it uses Shibboleth authentication (see: http://dev.e-taxonomy.eu/trac/wiki/ShibbolethProtocol)
@@ -55,3 +67,5 @@ def authenticate(url):
     s.post(parser.url, data=parser.to_post).content
 
     return s
+
+print myauth("hi","asd")
