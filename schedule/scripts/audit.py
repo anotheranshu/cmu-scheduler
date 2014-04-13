@@ -15,25 +15,25 @@ class AuthenticationError(Exception):
 
 
 #returns true if authentication successful, else false
-def isAuthenticated():
+def isAuthenticated(username,pw):
     try:
-        s = authenticate('https://enr-apps.as.cmu.edu/audit/audit')
+        s = authenticate('https://enr-apps.as.cmu.edu/audit/audit',username,pw)
         return True;
     except KeyError:
         return False;
 
-def get_all_courses():
+def get_all_courses(username,pw):
     ''' extracts your grades from CMU's academic audit
     returns a json of course -> letter grade (string)
     * means you're taking the class and grades haven't been put in yet
     AP means you got it through AP credit
     P is pass
     '''
-    if (not isAuthenticated()):
+    if (not isAuthenticated(username,pw)):
         print "Authentication Failed"
         return
 
-    s = authenticate('https://enr-apps.as.cmu.edu/audit/audit')
+    s = authenticate('https://enr-apps.as.cmu.edu/audit/audit',username,pw)
 
     # find out the params for main major auditing
     mainFrame = s.get('https://enr-apps.as.cmu.edu/audit/audit?call=2').content
@@ -64,10 +64,10 @@ def get_all_courses():
                 major_courses.add(major_course)
                 all_courses.add(major_course)
             else:
-            	nonmajor_course = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*', line)
-            	if nonmajor_course is not None:
-            		course = nonmajor_course.group(1)
-            		all_courses.add(course)
+                nonmajor_course = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*', line)
+                if nonmajor_course is not None:
+                    course = nonmajor_course.group(1)
+                    all_courses.add(course)
                 else:
                     classLevelArray = line.split("CLASSLEVEL:")
                     if len(classLevelArray) > 1: #found class level
@@ -88,4 +88,4 @@ def get_all_courses():
     return [major_courses,classlevel,major]
     #semesters left and major
 
-get_all_courses()
+get_all_courses("USERNAME","PW")

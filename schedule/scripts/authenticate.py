@@ -10,13 +10,13 @@ def myauth(username, password):
     USERNAME = username
     PASSWORD = password
     try:
-        s = authenticate('https://enr-apps.as.cmu.edu/audit/audit')
+        s = authenticate('https://enr-apps.as.cmu.edu/audit/audit',username,password)
     except KeyError:
         return None
             
     return s.get('https://enr-apps.as.cmu.edu/audit/audit').content
 
-def authenticate(url):
+def authenticate(url,username,pw):
     ''' queries an asset behind CMU's WebISO wall
     it uses Shibboleth authentication (see: http://dev.e-taxonomy.eu/trac/wiki/ShibbolethProtocol)
     note that you can use this to authenticate stuff beyond just grades! (any CMU service)
@@ -34,7 +34,7 @@ def authenticate(url):
     # 2. Login to CMU's WebISO "Stateless" page
     s.headers = {'Host': 'login.cmu.edu', 'Referer': 'https://login.cmu.edu/idp/Authn/Stateless'}
     form = s.post('https://login.cmu.edu/idp/Authn/Stateless', 
-                  data={'j_username': USERNAME, 'j_password': PASSWORD, 
+                  data={'j_username': username, 'j_password': pw, 
                         'j_continue': '1', 'submit': 'Login'}).content
     # 3. Parse resultant HTML and send corresponding POST request
     # Here, if you were in a browser, you'd get fed an HTML form
