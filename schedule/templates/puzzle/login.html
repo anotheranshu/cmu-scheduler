@@ -60,8 +60,6 @@ Tartan Scheduler Login
 	  <h2>Focus on your favorite classes</h2>
 	  <p></p>
 	  <p><a class="btn btn-default" id="thirdbutton" href="#" role="button" rel="tooltip">View details &raquo;</a></p>
-	  <p><button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.">
-  		Focus on your favorite classes</button></p>
 	</div>
 	</div>
 
@@ -76,15 +74,6 @@ Tartan Scheduler Login
 	    $('#secondbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'View Faculty Course Evaluations (FCEs) for previous semester\'s courses.  Filter your suggested schedules based on your favorite (or maybe not-so-favorite) profs!'});
 	    $('#secondbutton').tooltip();
 	    $('#thirdbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.'});
-
-	    $('learnmore').on('click', function (e) {
-	      alert("hi");
-	      window.location.href = "{% url 'about' %}";});
-	    $('firstbutton').tooltip();
-	    $('firstbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'We\'ll retrieve your completed and required courses from CMU Academic Audit once you login. We only recommend semester schedules that allow you to complete your degree on time!'});
-	    $('secondbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'View Faculty Course Evaluations (FCEs) for previous semester\'s courses.  Filter your suggested schedules based on your favorite (or maybe not-so-favorite) profs!'});
-	    $('secondbutton').tooltip();
-	    $('thirdbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'What are your must-take courses?  Is that special topic off-semester class with 42 prereqs only offered one more time before you graduate?  Tell us your highest priority classes, and we\'ll plan your schedule around them.'});
     });
     </script> 
 {% endblock %}
