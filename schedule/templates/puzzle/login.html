@@ -65,9 +65,7 @@ Tartan Scheduler Login
 
     <script type="text/javascript">
     $(document).ready(function(){
-	    alert("hi");
 	    $('#learnmore').on('click', function (e) {
-	      alert("hi");
 	      window.location.href = "{% url 'about' %}";});
 	    $('#firstbutton').tooltip();
 	    $('#firstbutton').popover({trigger: 'hover', animate: 'true', html: false, content: 'We\'ll retrieve your completed and required courses from CMU Academic Audit once you login. We only recommend semester schedules that allow you to complete your degree on time!'});
