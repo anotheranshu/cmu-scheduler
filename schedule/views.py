@@ -11,8 +11,8 @@ from schedule.helpers import *
 from django.contrib.auth import logout, authenticate, login
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-import scripts/audit as audit
-import scripts/authenticate as authenticate
+import scripts.audit as audit
+import scripts.authenticate as authenticate
 
 
 def index(request, optargs={}):

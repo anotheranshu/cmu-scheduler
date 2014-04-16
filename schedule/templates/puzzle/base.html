@@ -13,10 +13,21 @@
     <title>{% block title %}Tartan Scheduler{% endblock %}</title>
 
     <!-- Le styles -->
-    <link href="{% static 'bootstrap.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'bootstrap.css' %}" rel="stylesheet">-->
+    <link href="http://cs.oulgen.com/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cs.oulgen.com/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://cs.oulgen.com/css/main.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed here so that jquery is defined before js refers to it -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://cs.oulgen.com/js/bootstrap.js"></script>
+    <!-- <script src="{% static 'bootstrap.js' %}"></script> -->
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'jumbotron.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'jumbotron.css' %}" rel="stylesheet">-->
+    <link href="http://cs.oulgen.com/jumbotron.css" rel="stylesheet">
 </head>
 
   <body class=" hasGoogleVoiceExt" style="">
@@ -45,16 +56,12 @@
 		{% block content %}{% endblock %}
 	</div>
 
+    <div class="container">
       <footer>
         <p>© Tartan Scheduler 2014</p>
       </footer>
+    </div>
+    
     </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{% static 'bootstrap.js' %}"></script>
 </body>
 </html>
