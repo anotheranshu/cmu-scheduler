@@ -14,6 +14,7 @@ def info():
 			continue
 		elif line[0] == "{": #category
 			#print re.split(r"[{}]", line)[1]
+			
 			category = line
 		elif category != "": #looking for classes
 			#print line
@@ -45,7 +46,8 @@ def info():
 			classes.append((category,concatString))
 			category = ""
 		line = file.readline()
-	print classes
+	for class1 in classes:
+		print class1
 
 
 info()

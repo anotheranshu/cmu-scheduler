@@ -99,20 +99,20 @@ def parseJson():
 	#print json.loads(result)
 	courseDict = readSCSFCE()
 	courseDict = schedule.scheduleTimes(courseDict)
-	with open('courses2.json') as json_data:
-		d = json.load(json_data)
-    	json_data.close()
-    	#pprint(d)
+	# with open('courses2.json') as json_data:
+	# 	d = json.load(json_data)
+ #    	json_data.close()
+ #    	#pprint(d)
 	
-	for course in d:
-		cid = course['courseId']
-		if cid in courseDict:
-			currCourse = courseDict[cid]
-			currCourse[5] = course['description']
-			#print currCourse[5]
-			courseDict[cid] = currCourse
-		else:
-			continue
+	# for course in d:
+	# 	cid = course['courseId']
+	# 	if cid in courseDict:
+	# 		currCourse = courseDict[cid]
+	# 		currCourse[5] = course['description']
+	# 		#print currCourse[5]
+	# 		courseDict[cid] = currCourse
+	# 	else:
+	# 		continue
 		#print courseDict
 	json_scs_courses = []
 	for key,value in courseDict.items():
@@ -143,7 +143,9 @@ def parseJson():
 		#scs_courses.append(newCourse)
 		json_scs_courses.append(json.dumps(vars(newCourse),sort_keys=True, indent=4))
 	for currCourse in json_scs_courses:
-		print currCourse
+	    with open("test.json", "a") as myfile:
+    		myfile.write(currCourse)
+    		myfile.write("\n")
 	#jsonFormat = result[1:-2]
 	#print jsonFormat
 	#print json.dumps(result,sort_keys=True,indent=4)

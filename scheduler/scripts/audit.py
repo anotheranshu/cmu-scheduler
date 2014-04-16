@@ -22,11 +22,6 @@ def isAuthenticated(username,pw):
     except KeyError:
         return False;
 
-def convertClassToInt(cname):
-    total = cname.split("-")
-    newString = total[0]+total[1]
-    return int(newString)
-
 def get_all_courses(username,pw):
     ''' extracts your grades from CMU's academic audit
     returns a json of course -> letter grade (string)
@@ -67,12 +62,12 @@ def get_all_courses(username,pw):
             if matches is not None:
                 major_course = matches.group(1)
                 major_courses.add(major_course)
-                all_courses.add(convertClassToInt(major_course))
+                all_courses.add(major_course)
             else:
-                nonmajor_course = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*', line)
-                if nonmajor_course is not None:
-                    course = nonmajor_course.group(1)
-                    all_courses.add(convertClassToInt(course))
+            	nonmajor_course = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*', line)
+            	if nonmajor_course is not None:
+            		course = nonmajor_course.group(1)
+            		all_courses.add(course)
                 else:
                     classLevelArray = line.split("CLASSLEVEL:")
                     if len(classLevelArray) > 1: #found class level
@@ -90,7 +85,7 @@ def get_all_courses(username,pw):
     print all_courses
     print classlevel
     print major
-    return [all_courses,classlevel,major]
+    return [major_courses,classlevel,major]
     #semesters left and major
 
-get_all_courses("username","PW")
+get_all_courses("sajidur","Maramari1.")
