@@ -115,6 +115,10 @@ def parseJson():
 	# 		continue
 		#print courseDict
 	json_scs_courses = []
+
+	with open("dict.json", "a") as myfile:
+         myfile.write(repr(courseDict))
+
 	for key,value in courseDict.items():
 		cid = key
 		course_name = value[0]
@@ -142,10 +146,10 @@ def parseJson():
 							units,startTime,endTime,prereqs)
 		#scs_courses.append(newCourse)
 		json_scs_courses.append(json.dumps(vars(newCourse),sort_keys=True, indent=4))
-	for currCourse in json_scs_courses:
-	    with open("test.json", "a") as myfile:
-    		myfile.write(currCourse)
-    		myfile.write("\n")
+	#for currCourse in json_scs_courses:
+	#    with open("test.json", "a") as myfile:
+    #		myfile.write(currCourse)
+    #		myfile.write("\n")
 	#jsonFormat = result[1:-2]
 	#print jsonFormat
 	#print json.dumps(result,sort_keys=True,indent=4)

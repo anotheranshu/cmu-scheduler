@@ -92,4 +92,4 @@ def get_all_courses(username,pw):
     return [all_courses,classlevel,major]
     #semesters left and major
 
-get_all_courses("username","PW")
+#get_all_courses("username","PW")

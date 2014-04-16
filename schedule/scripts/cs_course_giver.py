@@ -37,8 +37,18 @@ def createAPool(taken, requirements):
     return result
 
 
+
+
+
+
+
+
+
+
+
+
 def main():
-    courses_taken = audit.get_all_courses()
+    courses_taken = set(audit.get_all_courses("USERNAME", "PW")[0])
     print createAPool(courses_taken, cs_courses)
 
 main()
