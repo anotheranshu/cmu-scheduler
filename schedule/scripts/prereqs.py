@@ -12,12 +12,16 @@ def getCourseDescriptionPreReqs(cid,semester):
 		prereqs = tree.xpath('//*[@id="course-detail-modal-body"]/div[4]/div[1]/dl/dd/text()')[0]
 		#units = tree.xpath('//*[@id="course-detail-modal-body"]/div[1]/div/table/tr[1]/text()')
 		units = tree.xpath('//tr[(((count(preceding-sibling::*) + 1) = 1) and parent::*)]//td[(((count(preceding-sibling::*) + 1) = 2) and parent::*)]/text()')[0]
+		days = tree.xpath('//*[@id="course-detail-modal-body"]/div[1]/div/table/tbody/tr[1]/td[5]/text()')[0]
+		days = days.replace(" ","")
+		days = days.replace("\r\n", "")
+		#print repr(days)
 		#print description
 		#print prereqs
-		return [description,prereqs,units]
+		return [description,prereqs,units,days]
 	except:
 		#print "Class not available for Fall 2014"
-		return ["","",""]
+		return ["","","",""]
 
 
 getCourseDescriptionPreReqs("15150","F14")

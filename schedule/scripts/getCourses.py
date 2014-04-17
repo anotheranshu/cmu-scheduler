@@ -57,6 +57,7 @@ def noLetters(s):
 
 def getCourses(s):
 	# Remove extraneous spaces
+
 	s = s.lstrip(" ")
 	s = s.rstrip(" ")
 
@@ -87,6 +88,8 @@ def getCourses(s):
 			print "OpError: ", op
 
 def prereqs(s):
+	if s == "None":
+		return []
 	s = "(" + s + ")"
 	return getCourses(s)
 
@@ -104,4 +107,4 @@ def testAll():
 	testPrereqs()
 	print "PASSED!"
 
-testAll()
+#testAll()

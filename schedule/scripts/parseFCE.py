@@ -44,7 +44,7 @@ def updateDict(temp_scs_courses,row):
 		else:
 			classProfessors[professor] = (course_rating,1)
 		updateInfo = [currClass[0],currHrsPerWeek,currNumRating+1,
-					  currAvgRating,classProfessors,"","","","",""]
+					  currAvgRating,classProfessors,"","","","","",""]
 
 
 
@@ -52,10 +52,10 @@ def updateDict(temp_scs_courses,row):
 		temp_scs_courses[cid] = updateInfo
 	else:
 		temp = [course_name,hrsPerWeek,1,course_rating
-				,{professor:(course_rating,1)},"","","","",""]
+				,{professor:(course_rating,1)},"","","","","",""]
 
 				#name,hrsperweek,numratings,course rating,professor,
-				#description, units, startTime, endTime, prereqs
+				#description, units, startTime, endTime, prereqs,days
 		temp_scs_courses[cid] = temp
 	return temp_scs_courses
 
@@ -116,8 +116,7 @@ def parseJson():
 		#print courseDict
 	json_scs_courses = []
 
-	with open("dict.json", "a") as myfile:
-         myfile.write(repr(courseDict))
+
 
 	for key,value in courseDict.items():
 		cid = key
@@ -131,21 +130,33 @@ def parseJson():
 		startTime = value[7]
 		endTime = value[8]
 		prereqs = ""
-		units = ""
-		[scrapeDesc,scrapePreReq,scrapeUnits] = pr.getCourseDescriptionPreReqs(cid,"F14")
-		[scrapeDescS14, scrapePreReqS14,scrapeUnitsS14] = pr.getCourseDescriptionPreReqs(cid,"S14")
+		days = ""
+		[scrapeDesc,scrapePreReq,scrapeUnits,scrapeDay] = pr.getCourseDescriptionPreReqs(cid,"F14")
+		[scrapeDescS14, scrapePreReqS14,scrapeUnitsS14,scrapeDayS14] = pr.getCourseDescriptionPreReqs(cid,"S14")
 		if (scrapeDesc != ""): #no class for F14
 			prereqs = scrapePreReq
-			description = scrapeDesc		
+			description = scrapeDesc
+			units = scrapeUnits
+			days = scrapeDay		
 		elif (scrapeDescS14 != ""):
 			prereqs = scrapeDescS14
 			description = scrapePreReqS14
 			units = scrapeUnitsS14
+			days = scrapeDayS14
+		newValue = value
+		newValue[6] = units
+		newValue[9] = prereqs
+		newValue[5] = description
+		newValue[10] = days
+		courseDict[key] = newValue
+
 		newCourse = Class(cid,course_name,hrsPerWeek,numRatings,
 							course_rating,professors,description,
 							units,startTime,endTime,prereqs)
 		#scs_courses.append(newCourse)
 		json_scs_courses.append(json.dumps(vars(newCourse),sort_keys=True, indent=4))
+	with open("dict.txt", "a") as myfile:
+         myfile.write(repr(courseDict))
 	#for currCourse in json_scs_courses:
 	#    with open("test.json", "a") as myfile:
     #		myfile.write(currCourse)
