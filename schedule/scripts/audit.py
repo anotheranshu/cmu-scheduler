@@ -55,8 +55,8 @@ def get_all_courses(username,pw):
     
     # take grades from <pre>s in the page
     d = pq(classes)
-    major_courses = Set([])
-    all_courses = Set([])
+    major_courses = []
+    all_courses = []
     classlevel = ""
     major = -1
     for pre in d('pre'):
@@ -65,13 +65,13 @@ def get_all_courses(username,pw):
             matches = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*$', line)
             if matches is not None:
                 major_course = matches.group(1)
-                major_courses.add(major_course)
-                all_courses.add(convertClassToInt(major_course))
+                major_courses.append(major_course)
+                all_courses.append(convertClassToInt(major_course))
             else:
                 nonmajor_course = re.search('(\d+-\d+) \w+\s*\'\d+ ((\w|\*)+)\s*(\d+\.\d)\s*', line)
                 if nonmajor_course is not None:
                     course = nonmajor_course.group(1)
-                    all_courses.add(convertClassToInt(course))
+                    all_courses.append(convertClassToInt(course))
                 else:
                     classLevelArray = line.split("CLASSLEVEL:")
                     if len(classLevelArray) > 1: #found class level

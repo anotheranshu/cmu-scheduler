@@ -12,27 +12,16 @@ from django.contrib.auth import logout, authenticate, login
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 import scripts.audit as audit
-import scripts.authenticate as authenticate
+import scripts.authenticate as cmu_auth
 
 
 def index(request, optargs={}):
   user = None
-
   if (request.user.is_authenticated()):
     user = request.user
   else:
     return HttpResponseRedirect(reverse('login'))
-
-
-  if (user.student.is_instructor):
-    activity_list = Activity.objects.all()
-    return render(request, 'puzzle/instructor_hub.html', {'activities': activity_list})
-  else:
-    problem_list = map(lambda x: Problem.objects.get(pk=x), current_problems(user.student))
-    activity_list = map(lambda x: Activity.objects.get(pk=x), current_activities(user.student))
-    completed_problems = map(lambda x: Problem.objects.get(pk=x), problem_field_to_list(user.student.group.solved_problems))
-    completed_activities = map(lambda x: Activity.objects.get(pk=x), problem_field_to_list(user.student.group.solved_activities))
-    return render(request, 'puzzle/student_hub.html', {'current_problems': problem_list, 'current_activities': activity_list, 'completed_problems': completed_problems, 'completed_activities': completed_activities})
+  return render('puzzle/student_hub.html')
 
 def login_view(request):
   return render(request, 'puzzle/login.html', {})
@@ -43,62 +32,6 @@ def logout_view(request):
 
 def about(request):
   return render(request, 'puzzle/about.html', {})
-   
-def submit(request):
-  if (request.user.is_authenticated()):
-    problem_num = 0
-    answer = ""
-    student = request.user.student
-    try:
-      problem_num = int(request.POST['problem'])
-      answer = request.POST['answer']
-    except(KeyError):
-      return HttpResponse(simplejson.dumps({'error': 'Invalid Request'}), content_type="application/json")
-    else:
-      if has_problem_access(student, problem_num):
-        response = {'problem': problem_num}
-        submission_code = process_submission(student, answer, problem_num)
-        if (submission_code == 1):
-          activity = Problem.objects.get(pk=problem_num).activity
-          if (activity):
-            return HttpResponseRedirect(reverse('activity', args=(activity.id,)))
-          else:
-            return HttpResponseRedirect(reverse('index'))
-        elif (submission_code == 0):
-          messages.error(request, "Sorry, that's incorrect.")
-          return HttpResponseRedirect(reverse('problem', args=(problem_num,)))
-        else:
-          messages.error(request, "You've exceeded the maximum daily submissions for that problem.  Try again tomorrow!")
-          return HttpResponseRedirect(reverse('index'))
-        return HttpResponse(simplejson.dumps(response), content_type="application/json")
-      else:
-        #TODO, notify instructors that this has occured, as it shouldn't except in cheating cases
-        return HttpResponse("You don't have access to this problem yet.")
-  else:
-    return HttpResponseForbidden()
-
-def checkin(request):
-  if (request.user.is_authenticated() and request.user.student.is_instructor):
-    activity_num = 0
-    student_andrew = ""
-    try:
-      activity_num = int(request.POST['activity'])
-      student_andrew = request.POST['andrew']
-    except(KeyError):
-      return HttpResponse(simplejson.dumps({'error': 'Invalid Request'}), content_type="application/json")
-    else:
-      process_checkin(student_andrew, activity_num)
-      return HttpResponseRedirect(reverse('index'))
-  else:
-    return HttpResponseForbidden()
-
-def display_problem(request, pnum):
-  problem_num = int(pnum)
-  if (request.user.is_authenticated() and has_problem_access(request.user.student, problem_num)):
-    arr = map(lambda x: "graphs/game" + str(x) + ".png", range(1, 9))
-    return render(request, 'puzzle/problems/' + Problem.objects.get(pk=problem_num).file_name + '.html', {"problem": problem_num, "arr": arr})
-  else:
-    return HttpResponseForbidden()
 
 def serve_static(request, template):
   return render(request, 'parchment.txt')
@@ -115,11 +48,14 @@ def display_activity(request, pnum):
 
 def auth_user(request):
   myandrew = request.POST["username"]
-  password = request.POST["password"]
-  if authenticate.myauth(myandrew, password) is not None:
-    if len(list(Student.objects.filter(andrew=myandrew))) is 0:
+  mypassword = request.POST["password"]
+  if cmu_auth.myauth(myandrew, mypassword) is not None:
+    user = authenticate(username=myandrew, password=myandrew)
+    if user is None:
       make_student(myandrew, password)
-    user = authenticate(user=myandrew, password=myandrew)
+      user = authenticate(username=myandrew, password=myandrew)
     login(request, user)
+    return render(request, 'puzzle/student_hub.html')
+  return render(request, 'puzzle/login.html')
   
       
