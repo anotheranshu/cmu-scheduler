@@ -52,7 +52,7 @@ def auth_user(request):
   if cmu_auth.myauth(myandrew, mypassword) is not None:
     user = authenticate(username=myandrew, password=myandrew)
     if user is None:
-      make_student(myandrew, password)
+      make_student(myandrew, mypassword)
       user = authenticate(username=myandrew, password=myandrew)
     login(request, user)
     return render(request, 'puzzle/student_hub.html')

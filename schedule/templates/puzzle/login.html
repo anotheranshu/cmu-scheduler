@@ -29,7 +29,7 @@ Tartan Scheduler Login
 		<form method="post" role="form" action="{% url 'auth_user' %}">
 			{% csrf_token %}
 			Andrew ID: <input type="text" name="username"><br />
-			Password: <input type="text" name="password"><br />
+			Password: <input type="password" name="password"><br />
 			<button class="btn btn-success" id="submit" type="submit" value="login">Sign in</button>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>	
