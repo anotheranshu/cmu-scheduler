@@ -7,13 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', include('schedule.urls')),
-	url(r'^puzzle/', include('schedule.urls')),
-	url(r'^accounts/', include('schedule.urls')),
-    url(r'^dad.txt$', views.serve_static, {'template' : 'puzzle/parchment.txt'}, name='dad'),
-    url(r'^tome.txt$', views.serve_static_tome, name='spellarchive')
-
-
+	url(r'^$', include('schedule.urls'))
     # Examples:
     # url(r'^$', 'puzzlehunt.views.home', name='home'),
     # url(r'^puzzlehunt/', include('puzzlehunt.foo.urls')),

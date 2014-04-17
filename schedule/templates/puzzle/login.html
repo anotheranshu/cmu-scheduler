@@ -28,16 +28,8 @@ Tartan Scheduler Login
 		<!-- TODO: Change following line back to url 'auth_user' once it works:-->
 		<form method="post" role="form" action="{% url 'auth_user' %}">
 			{% csrf_token %}
-			<table>
-				<tr>
-				<td>{{ form.username.label_tag }}</td>
-				<td>{{ form.username }}</td>
-				</tr>
-				<tr>
-				<td>{{ form.password.label_tag }}</td>
-				<td>{{ form.password }}</td>
-				</tr>
-			</table>
+			Andrew ID: <input type="text" name="username"><br />
+			Password: <input type="text" name="password"><br />
 			<button class="btn btn-success" id="submit" type="submit" value="login">Sign in</button>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>	
