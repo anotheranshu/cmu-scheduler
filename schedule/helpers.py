@@ -7,7 +7,7 @@ import random
 from django.conf import settings
 import json
 from pprint import pprint
-import scripts.audit
+import scripts.audit as audit
 
 DAILY_SUBMISSION_MAX = 5
 PROBLEM_VALUE = 5
