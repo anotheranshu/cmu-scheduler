@@ -1,3 +1,4 @@
+import intersect
 import getCourses
 
 
@@ -7,7 +8,7 @@ s =  eval(f.read())
 #for key in s:
 #	print key,s[key]
 
-oguzList = [15210,15150,15122,15451,15112]
+oguzList = [15210,15150,15122,15451]
 graphDict = {}
 
 #{CID: ARRAY OF POSTREQS}
@@ -33,51 +34,67 @@ def noPreReqs(cid,oguzList):
 					return False #found prereq
 	return True
 
+def militaryTime(s):
+	# e.g. s = 10:20AM
+	AMorPM = s[-2:]
+	(hour,minute) = s[:-2].split(":")
+	(hour,minute) = (int(hour), int(minute))
+
+	if (AMorPM == "AM"):
+		return 60*(hour%12) + minute
+	elif (AMorPM == "PM"):
+		return 60*12 + 60*(hour%12) + minute
+
+def intersect(start1,end1,day1,start2,end2,day2):
+
+	# Check day intersect (e.g., day = "MWF" or day = "TR")
+	sameDay = False
+	for d in day1:
+		if d in day2:
+			sameDay = True
+
+	if (sameDay == False):
+		return False
+	else:
+		(s1,e1,s2,e2) = map(militaryTime, [start1, end1, start2, end2])
+		# Check time intersect
+		return ((s1 <= s2 and e1 >= s2) or 
+				(s2 <= s1 and e2 >= s1))
 
 def returnNoPreReqs(oguzList):
 	allWithNoPreReqs = []
 	for cid in oguzList:
 		if noPreReqs(cid,oguzList):
 			allWithNoPreReqs.append(cid)
-	print allWithNoPreReqs
+	return allWithNoPreReqs
 
 def parseIntoArrayDays(days):
-	l = len(days)
-	i = 0
-	result = []
-	while i < l:
-		if days[i] == "M":
-			result.append("M")
-		elif days[i] == "T":
-			if (i+1 < l) and (days[i+1] == "R"):
-				result.append("TR")
-			else:
-				result.append("T")
-		elif days[i] == "W":
-			result.append("W")
-		elif days[i] == "F":
-			result.append("F")
-		i = i + 1
-	return result
+	return days
 
-print parseIntoArrayDays("MTWTRF")
+#print parseIntoArrayDays("MTWTRF")
 
 def updateDict(available,course):
 	info = s[turnToString(course)]
 	courseStart = info[7]
 	courseEnd = info[8]
 	courseDays = info[10]
+	#print available
 	for key in available:
 		dayCourses = available[key]
+		#print "available:",available
 		for classInDay in dayCourses:
-			startTime = dayCourses[0]
-			endTime = dayCourses[1]
+			startTime = classInDay[0]
+			endTime = classInDay[1]
+			#print startTime
+			#print endTime
+			#print classInDay
 			if intersect(startTime,endTime,key,courseStart,courseEnd,courseDays):
-				return {}
+				return available
 	arrayDays = parseIntoArrayDays(courseDays)
+
 	for day in arrayDays:
 		dayCourses = available[day]
-		dayCourses.append((courseStart,courseEnd))
+		dayCourses.append((courseStart,courseEnd,course))
 		available[day] = dayCourses
 	return available
 	
@@ -86,16 +103,18 @@ def updateDict(available,course):
 def findUnits():
 	neededCourses = returnNoPreReqs(oguzList)
 	currentHours = 0
-	available = {"M": [], "T": [], "W":[], "TR":[], "F":[]}
+	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
 	thresholdHrs = 60
+	#print neededCourses
 	for course in neededCourses:
+		#print course
 		currCourseHrs = s[turnToString(course)][1]
 		if ((currCourseHrs+currentHours) <= thresholdHrs):
-			if updateDict(available,course) == {}:
-				continue
-			else:
-				available = updateDict(available,course)
-				currentHours = currentHours + currCourseHrs
+			available = updateDict(available,course)
+			currentHours = currentHours + currCourseHrs
+		#print available
+	print available
 
 
-returnNoPreReqs(oguzList)
+#returnNoPreReqs(oguzList)
+findUnits()
