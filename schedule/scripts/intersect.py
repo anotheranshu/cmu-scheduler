@@ -3,7 +3,7 @@
 # 15-221 Spring 2014
 # intersect.py
 
-import graph
+#import graph
 
 def militaryTime(s):
 	# e.g. s = 10:20AM
