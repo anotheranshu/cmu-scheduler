@@ -1,9 +1,7 @@
 import json
 import graph
 
-courses = [[15251, 15213, 15214],[15167],[15872],[18766]]
-
-
+# Requires: 2d array of courses
 def getJson(courses):
     result = []
     for year in xrange(len(courses)):
