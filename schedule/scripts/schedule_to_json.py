@@ -13,6 +13,6 @@ def getJson(courses):
                       sort_keys=False, indent=4, separators=(',', ': '))
 
 def main():
-    print getJson(graph.findUnits())
+    print getJson(map (lambda x : list(x), graph.restSchedule()))
 
 main()

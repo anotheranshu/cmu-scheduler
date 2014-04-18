@@ -113,7 +113,7 @@ def findUnits():
 			available = updateDict(available,course)
 			currentHours = currentHours + currCourseHrs
 		#print available
-	print available
+	return available
 
 
 #returnNoPreReqs(oguzList)
