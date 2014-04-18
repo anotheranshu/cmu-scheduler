@@ -100,7 +100,7 @@ def updateDict(available,course):
 	
 
 
-def findUnits():
+def findUnits(oguzList):
 	neededCourses = returnNoPreReqs(oguzList)
 	currentHours = 0
 	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
@@ -113,8 +113,31 @@ def findUnits():
 			available = updateDict(available,course)
 			currentHours = currentHours + currCourseHrs
 		#print available
-	print available
+	return available
+
+def extractCourses(available):
+	currCourses = set()
+	for day,value in available.items():
+		for tup in value:
+			course = tup[2]
+			currCourses.add(course)
+	return currCourses
+
+def restSchedule(oguzList):
+	remainingCourses = oguzList
+	i = 0
+	allSchedule = []
+	while len(remainingCourses) != 0:
+		available = findUnits(remainingCourses)
+		allSchedule.append(extractCourses(available))
+		currCourses = extractCourses(available)
+		oguzSet = set(remainingCourses)
+		remainingCourses = list(oguzSet.difference(currCourses))
+	return allSchedule
+
+	
 
 
 #returnNoPreReqs(oguzList)
-findUnits()
+#findUnits()
+restSchedule(oguzList)
