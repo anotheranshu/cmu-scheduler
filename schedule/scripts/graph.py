@@ -1,6 +1,6 @@
 import intersect
 import getCourses
-
+import cs_course_giver
 
 f = open('dict.txt', 'rb')
 
@@ -8,7 +8,9 @@ s =  eval(f.read())
 #for key in s:
 #	print key,s[key]
 
-oguzList = [15210,15150,15122,15451]
+#oguzList = cs_course_giver.giveCoursesForUser("user","pw")
+oguzList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
+#print oguzList
 graphDict = {}
 
 #{CID: ARRAY OF POSTREQS}
@@ -19,6 +21,8 @@ def turnToString(cid):
 
 def noPreReqs(cid,oguzList):
 	cid = turnToString(cid)
+	if cid not in s:
+		return True
 	tempPrereq = s[cid][9] #9 is prereqs
 	#print tempPrereq
 	finalPrereq = getCourses.prereqs(tempPrereq)
@@ -74,6 +78,8 @@ def parseIntoArrayDays(days):
 #print parseIntoArrayDays("MTWTRF")
 
 def updateDict(available,course):
+	if turnToString(course) not in s:
+		return available
 	info = s[turnToString(course)]
 	courseStart = info[7]
 	courseEnd = info[8]
@@ -104,11 +110,14 @@ def findUnits(oguzList):
 	neededCourses = returnNoPreReqs(oguzList)
 	currentHours = 0
 	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
-	thresholdHrs = 60
+	thresholdHrs = 35
 	#print neededCourses
 	for course in neededCourses:
-		#print course
-		currCourseHrs = s[turnToString(course)][1]
+
+		if turnToString(course) not in s:
+			currCourseHrs = 9
+		else:
+			currCourseHrs = s[turnToString(course)][1]
 		if ((currCourseHrs+currentHours) <= thresholdHrs):
 			available = updateDict(available,course)
 			currentHours = currentHours + currCourseHrs
@@ -129,13 +138,22 @@ def restSchedule():
 	allSchedule = []
 	while len(remainingCourses) != 0:
 		available = findUnits(remainingCourses)
-		allSchedule.append(extractCourses(available))
+		humanities = set()
+		for course in remainingCourses:
+			#find random not cs course and add
+			string = str(course)
+			if string[:-3] != "15": #cs
+				humanities.add(course)
+				remainingCourses.remove(course)
+				break;
+
+		allSchedule.append(extractCourses(available) | humanities)
 		currCourses = extractCourses(available)
 		oguzSet = set(remainingCourses)
 		remainingCourses = list(oguzSet.difference(currCourses))
-	return allSchedule
+	print allSchedule
 
-
+restSchedule()
 #returnNoPreReqs(oguzList)
 #findUnits()
 # restSchedule(oguzList)
