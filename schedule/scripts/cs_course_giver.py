@@ -36,19 +36,6 @@ def createAPool(taken, requirements):
             result += random.sample(elem - taken, num - len(inter))
     return result
 
-
-
-
-
-
-
-
-
-
-
-
-def main():
-    courses_taken = set(audit.get_all_courses("USERNAME", "PW")[0])
-    print createAPool(courses_taken, cs_courses)
-
-main()
+def giveCoursesForUser(USERNAME, PASSWORD):
+    courses_taken = set(audit.get_all_courses(USERNAME, PASSWORD)[0])
+    return createAPool(courses_taken, cs_courses)
