@@ -69,4 +69,4 @@ def getJson(USERNAME, PASSWORD):
 
 
 
-getJson("sajidurr","PASSWORD")
+getJson("USER","PASSWORD")
