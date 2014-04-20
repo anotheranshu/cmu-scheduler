@@ -1,6 +1,6 @@
 import intersect
 import getCourses
-import cs_course_giver
+#import cs_course_giver
 
 f = open('dict.txt', 'rb')
 
@@ -9,10 +9,9 @@ s =  eval(f.read())
 #	print key,s[key]
 
 #tempList = cs_course_giver.giveCoursesForUser("user","pw")
-tempList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
+#tempList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
 #print tempList
-graphDict = {}
-thresholdHrs = 35
+#thresholdHrs = 35
 
 #{CID: ARRAY OF POSTREQS}
 
@@ -134,7 +133,7 @@ def extractCourses(available):
 			currCourses.add(course)
 	return currCourses
 
-def restSchedule():
+def restSchedule(tempList,thresholdHrs):
 	remainingCourses = tempList
 	i = 0
 	allSchedule = []
@@ -167,7 +166,7 @@ def restSchedule():
 	return allSchedule
 	#print remainingCourses
 
-print restSchedule()
+#print restSchedule(tempList,thresholdHrs)
 #returnNoPreReqs(tempList)
 #findUnits()
 # restSchedule(tempList)
