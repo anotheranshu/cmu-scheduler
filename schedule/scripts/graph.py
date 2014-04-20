@@ -24,7 +24,7 @@ def noPreReqs(cid,tempList):
 	if cid not in s:
 		return True
 	tempPrereq = s[cid][9] #9 is prereqs
-	#print tempPrereq
+
 	finalPrereq = getCourses.prereqs(tempPrereq)
 	#print finalPrereq
 	for possiblePreReq in tempList:
@@ -40,14 +40,17 @@ def noPreReqs(cid,tempList):
 
 def militaryTime(s):
 	# e.g. s = 10:20AM
-	AMorPM = s[-2:]
-	(hour,minute) = s[:-2].split(":")
-	(hour,minute) = (int(hour), int(minute))
+	try:
+		AMorPM = s[-2:]
+		(hour,minute) = s[:-2].split(":")
+		(hour,minute) = (int(hour), int(minute))
 
-	if (AMorPM == "AM"):
-		return 60*(hour%12) + minute
-	elif (AMorPM == "PM"):
-		return 60*12 + 60*(hour%12) + minute
+		if (AMorPM == "AM"):
+			return 60*(hour%12) + minute
+		elif (AMorPM == "PM"):
+			return 60*12 + 60*(hour%12) + minute
+	except:
+		return
 
 def intersect(start1,end1,day1,start2,end2,day2):
 
@@ -77,8 +80,13 @@ def parseIntoArrayDays(days):
 
 #print parseIntoArrayDays("MTWTRF")
 
-def updateDict(available,course):
+def updateDict(available,course,semester):
 	if turnToString(course) not in s:
+		return available
+	if semester != 0: #not next semester
+		dayCourses = available["M"]
+		dayCourses.append(("","",course))
+		available["M"] = dayCourses
 		return available
 	info = s[turnToString(course)]
 	courseStart = info[7]
@@ -106,7 +114,7 @@ def updateDict(available,course):
 	
 
 
-def findUnits(tempList):
+def findUnits(tempList,thresholdHrs,semester):
 	neededCourses = returnNoPreReqs(tempList)
 	currentHours = 0
 	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
@@ -118,9 +126,10 @@ def findUnits(tempList):
 			#currCourseHrs = 9
 			continue
 		else:
+
 			currCourseHrs = s[turnToString(course)][1]
 		if ((currCourseHrs+currentHours) <= thresholdHrs):
-			available = updateDict(available,course)
+			available = updateDict(available,course,semester)
 			currentHours = currentHours + currCourseHrs
 		#print available
 	return [available,currentHours]
@@ -135,10 +144,10 @@ def extractCourses(available):
 
 def restSchedule(tempList,thresholdHrs):
 	remainingCourses = tempList
-	i = 0
+	semester = 0
 	allSchedule = []
 	while len(remainingCourses) != 0:
-		[available,currentHours] = findUnits(remainingCourses)
+		[available,currentHours] = findUnits(remainingCourses,thresholdHrs,semester)
 		#print currentHours
 		#print remainingCourses
 		humanities = set()
@@ -147,15 +156,16 @@ def restSchedule(tempList,thresholdHrs):
 			#find random not cs course and add
 			string = str(course)
 			
-			if string[:-3] != "15" and (currentHours + 9) <= thresholdHrs: #cs
+			if (string[:-3] != "15" and (currentHours + 9) <= thresholdHrs) \
+				or (string not in s and (currentHours + 9) <= thresholdHrs): #cs
 				currentHours = currentHours + 9
 				humanities.add(course)
 				coursesToRemove.append(course)
 				#remainingCourses.remove(course)
 			
-		i = i + 1
+		semester = semester + 1
 		currentHours = 0
-		if i > 10:
+		if semester > 6:
 			break
 		allSchedule.append(extractCourses(available) | humanities)
 		currCourses = extractCourses(available)
@@ -163,10 +173,10 @@ def restSchedule(tempList,thresholdHrs):
 		remainingCourses = list(tempSet.difference(currCourses))
 		for course in coursesToRemove:
 			remainingCourses.remove(course)
-	return allSchedule
+	#return allSchedule
 	#print remainingCourses
+	return allSchedule
 
-#print restSchedule(tempList,thresholdHrs)
 #returnNoPreReqs(tempList)
 #findUnits()
 # restSchedule(tempList)

@@ -88,12 +88,15 @@ def getCourses(s):
 			print "OpError: ", op
 
 def prereqs(s):
+	if s.strip() == "":
+		return []
 	if s == "None":
 		return []
 	s = "(" + s + ")"
 	return getCourses(s)
 
 def testPrereqs():
+	#print prereqs("15213")
 	assert(prereqs("(15210 and 15251) or (15212)") == [ [15210, 15251], 15212 ])
 	assert(prereqs("15110 and 15112 and 15122") == [ [15110, 15112, 15122] ])
 	assert(prereqs("(15210 or 15251) and (15212) and (15214)") == 
