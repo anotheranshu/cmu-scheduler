@@ -12,6 +12,7 @@ s =  eval(f.read())
 oguzList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
 #print oguzList
 graphDict = {}
+thresholdHrs = 70000000
 
 #{CID: ARRAY OF POSTREQS}
 
@@ -110,19 +111,20 @@ def findUnits(oguzList):
 	neededCourses = returnNoPreReqs(oguzList)
 	currentHours = 0
 	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
-	thresholdHrs = 35
+
 	#print neededCourses
 	for course in neededCourses:
 
 		if turnToString(course) not in s:
-			currCourseHrs = 9
+			#currCourseHrs = 9
+			continue
 		else:
 			currCourseHrs = s[turnToString(course)][1]
 		if ((currCourseHrs+currentHours) <= thresholdHrs):
 			available = updateDict(available,course)
 			currentHours = currentHours + currCourseHrs
 		#print available
-	return available
+	return [available,currentHours]
 
 def extractCourses(available):
 	currCourses = set()
@@ -137,21 +139,33 @@ def restSchedule():
 	i = 0
 	allSchedule = []
 	while len(remainingCourses) != 0:
-		available = findUnits(remainingCourses)
+		[available,currentHours] = findUnits(remainingCourses)
+		#print currentHours
+		#print remainingCourses
 		humanities = set()
+		coursesToRemove = []
 		for course in remainingCourses:
 			#find random not cs course and add
 			string = str(course)
-			if string[:-3] != "15": #cs
+			
+			if string[:-3] != "15" and (currentHours + 9) <= thresholdHrs: #cs
+				currentHours = currentHours + 9
 				humanities.add(course)
-				remainingCourses.remove(course)
-				break;
-
+				coursesToRemove.append(course)
+				#remainingCourses.remove(course)
+			
+		i = i + 1
+		currentHours = 0
+		if i > 10:
+			break
 		allSchedule.append(extractCourses(available) | humanities)
 		currCourses = extractCourses(available)
 		oguzSet = set(remainingCourses)
 		remainingCourses = list(oguzSet.difference(currCourses))
+		for course in coursesToRemove:
+			remainingCourses.remove(course)
 	print allSchedule
+	print remainingCourses
 
 restSchedule()
 #returnNoPreReqs(oguzList)
