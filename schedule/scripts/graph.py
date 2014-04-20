@@ -8,11 +8,11 @@ s =  eval(f.read())
 #for key in s:
 #	print key,s[key]
 
-#oguzList = cs_course_giver.giveCoursesForUser("user","pw")
-oguzList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
-#print oguzList
+#tempList = cs_course_giver.giveCoursesForUser("user","pw")
+tempList = [15451, 15128, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
+#print tempList
 graphDict = {}
-thresholdHrs = 70000000
+thresholdHrs = 35
 
 #{CID: ARRAY OF POSTREQS}
 
@@ -20,7 +20,7 @@ def turnToString(cid):
 	return str(cid)
 
 
-def noPreReqs(cid,oguzList):
+def noPreReqs(cid,tempList):
 	cid = turnToString(cid)
 	if cid not in s:
 		return True
@@ -28,7 +28,7 @@ def noPreReqs(cid,oguzList):
 	#print tempPrereq
 	finalPrereq = getCourses.prereqs(tempPrereq)
 	#print finalPrereq
-	for possiblePreReq in oguzList:
+	for possiblePreReq in tempList:
 		for course in finalPrereq:
 			if isinstance(course,list):
 				for inCourse in course:
@@ -66,10 +66,10 @@ def intersect(start1,end1,day1,start2,end2,day2):
 		return ((s1 <= s2 and e1 >= s2) or 
 				(s2 <= s1 and e2 >= s1))
 
-def returnNoPreReqs(oguzList):
+def returnNoPreReqs(tempList):
 	allWithNoPreReqs = []
-	for cid in oguzList:
-		if noPreReqs(cid,oguzList):
+	for cid in tempList:
+		if noPreReqs(cid,tempList):
 			allWithNoPreReqs.append(cid)
 	return allWithNoPreReqs
 
@@ -107,8 +107,8 @@ def updateDict(available,course):
 	
 
 
-def findUnits(oguzList):
-	neededCourses = returnNoPreReqs(oguzList)
+def findUnits(tempList):
+	neededCourses = returnNoPreReqs(tempList)
 	currentHours = 0
 	available = {"M": [], "T": [], "W":[], "R":[], "F":[]}
 
@@ -135,7 +135,7 @@ def extractCourses(available):
 	return currCourses
 
 def restSchedule():
-	remainingCourses = oguzList
+	remainingCourses = tempList
 	i = 0
 	allSchedule = []
 	while len(remainingCourses) != 0:
@@ -160,14 +160,14 @@ def restSchedule():
 			break
 		allSchedule.append(extractCourses(available) | humanities)
 		currCourses = extractCourses(available)
-		oguzSet = set(remainingCourses)
-		remainingCourses = list(oguzSet.difference(currCourses))
+		tempSet = set(remainingCourses)
+		remainingCourses = list(tempSet.difference(currCourses))
 		for course in coursesToRemove:
 			remainingCourses.remove(course)
-	print allSchedule
-	print remainingCourses
+	return allSchedule
+	#print remainingCourses
 
-restSchedule()
-#returnNoPreReqs(oguzList)
+print restSchedule()
+#returnNoPreReqs(tempList)
 #findUnits()
-# restSchedule(oguzList)
+# restSchedule(tempList)
