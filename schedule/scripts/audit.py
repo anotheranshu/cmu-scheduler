@@ -86,9 +86,9 @@ def get_all_courses(username,pw):
         major = 1
 
     #print major_courses
-    print all_courses
-    print classlevel
-    print major
+    #print all_courses
+    #print classlevel
+    #print major
     return [all_courses,classlevel,major]
     #semesters left and major
 

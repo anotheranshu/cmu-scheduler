@@ -3,13 +3,13 @@ import audit
 
 cs_courses = [
 # CS Courses
-({15128, 15122, 15150, 15210, 15213, 15251, 15451}, 7),
+({15122, 15150, 15210, 15213, 15251, 15451}, 6),
 ({15221}, 1),
 ({15354, 15355, 15453, 15455, 21301, 21484}, 1),
 ({2450, 5391, 5431, 10601, 11411, 15313, 15322, 15323, 15381, 15415, 15462, 16384, 16385}, 1),
 ({15312, 15317, 15414, 15424, 21300, 80311}, 1),
 ({15410, 15411, 15418, 15440, 15441}, 1),
-({15322, 15214, 15237, 15239, 15290, 15291, 15295, 15312, 15313, 15317, 15319},2),
+({15322, 15214, 15237, 15239, 15291, 15295, 15312, 15313, 15317, 15319},2),
 
 # Mathematics
 ({21120, 21122, 21127}, 3),
@@ -36,19 +36,6 @@ def createAPool(taken, requirements):
             result += random.sample(elem - taken, num - len(inter))
     return result
 
-
-
-
-
-
-
-
-
-
-
-
-def main():
-    courses_taken = set(audit.get_all_courses("USERNAME", "PW")[0])
-    print createAPool(courses_taken, cs_courses)
-
-main()
+def giveCoursesForUser(USERNAME, PASSWORD):
+    courses_taken = set(audit.get_all_courses(USERNAME, PASSWORD)[0])
+    return createAPool(courses_taken, cs_courses)
