@@ -2,7 +2,7 @@ import intersect
 import getCourses
 #import cs_course_giver
 
-f = open('dict.txt', 'rb')
+f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
 
 s =  eval(f.read())
 #for key in s:
