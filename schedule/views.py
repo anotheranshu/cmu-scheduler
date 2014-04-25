@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 import scripts.audit as audit
 import scripts.authenticate as cmu_auth
+from scripts.schedule_to_json import getJson
 
 
 def index(request, optargs={}):
@@ -33,12 +34,6 @@ def logout_view(request):
 def about(request):
   return render(request, 'puzzle/about.html', {})
 
-def serve_static(request, template):
-  return render(request, 'parchment.txt')
-
-def serve_static_tome(request):
-  return render(request, 'tome.txt')
-
 def display_activity(request, pnum):
   activity_num = int(pnum)
   if (request.user.is_authenticated() and has_activity_access(request.user.student, activity_num)):
@@ -55,7 +50,7 @@ def auth_user(request):
       make_student(myandrew, mypassword)
       user = authenticate(username=myandrew, password=myandrew)
     login(request, user)
-    return render(request, 'puzzle/student_hub.html')
+    return render(request, 'puzzle/student_hub.html', {"myjson": getJson(myandrew, mypassword, 0)})
   return render(request, 'puzzle/login.html')
   
       
