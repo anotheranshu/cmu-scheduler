@@ -1,5 +1,6 @@
 import intersect
 import getCourses
+from django.conf import settings
 #import cs_course_giver
 
 f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
