@@ -178,6 +178,7 @@ def restSchedule(tempList,thresholdHrs):
 	#print remainingCourses
 	return allSchedule
 
+
 #returnNoPreReqs(tempList)
 #findUnits()
 # restSchedule(tempList)
