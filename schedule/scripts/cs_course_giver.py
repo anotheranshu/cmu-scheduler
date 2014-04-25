@@ -27,8 +27,9 @@ cs_courses = [
 ({57173, 60205, 70342, 76227, 76232, 76239, 76241, 79104, 79207, 79222, 79226, 79230, 79240, 79241, 79242, 79255, 79261, 79281, 79311, 79345, 79350, 79368, 80100, 80250, 80251, 80253, 80254, 80255, 80261, 80276, 82273, 82293, 82303, 82304, 82333, 82342, 82343, 82344, 82345}, 2)
 ]
 
-def createAPool(taken, requirements):
-    result = []
+def createAPool(taken, requirements, wanted = []):
+    result = wanted
+    taken |= set(wanted)
     for (elem, num) in requirements:
         inter = taken.intersection(elem)
         if (num - len(inter) > 0):
@@ -36,6 +37,6 @@ def createAPool(taken, requirements):
             result += random.sample(elem - taken, num - len(inter))
     return result
 
-def giveCoursesForUser(USERNAME, PASSWORD, major):
+def giveCoursesForUser(USERNAME, PASSWORD, major, wanted = []):
     courses_taken = set(audit.get_all_courses(USERNAME, PASSWORD)[0])
-    return createAPool(courses_taken, cs_courses)
+    return createAPool(courses_taken, cs_courses, wanted)
