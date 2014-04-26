@@ -19,7 +19,8 @@ def getJsonVals(courses):
 def getJson(USERNAME, PASSWORD, major):
     courses = cs_course_giver.giveCoursesForUser(USERNAME, PASSWORD, major)
     thresholdHrs = 35
-    f = open('flare.json', 'w')
+    #f = open('flare.json', 'w')
     print graph.restSchedule(courses, thresholdHrs)
     s = getJsonVals(map (lambda x : list(x), graph.restSchedule(courses, thresholdHrs)))
-    f.write(s)
+    #f.write(s)
+    return s
