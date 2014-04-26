@@ -31,7 +31,6 @@ path.link {
 {% endblock %}
 
 {% block content %}
-{{ myjson }}
 <div id="message">
 {% if messages %}
 {% for message in messages %}
@@ -68,8 +67,9 @@ var vis = d3.select("#body").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-d3.json("flare.json", function(json) {
-  root = json;
+  var data = {{ myjson }}
+
+  root = data;
   root.x0 = h / 2;
   root.y0 = 0;
 
@@ -88,7 +88,6 @@ d3.json("flare.json", function(json) {
   // toggle(root.children[9].children[0]);
 
   update(root);
-});
 
 function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
