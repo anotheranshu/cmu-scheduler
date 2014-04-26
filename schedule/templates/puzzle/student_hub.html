@@ -31,6 +31,7 @@ path.link {
 {% endblock %}
 
 {% block content %}
+{% autoescape off %}
 {{ myjson }}
 <div id="message">
 {% if messages %}
@@ -192,5 +193,6 @@ function toggle(d) {
 }
 
     </script>
+{% endautoescape %}
 {% endblock %}
 
