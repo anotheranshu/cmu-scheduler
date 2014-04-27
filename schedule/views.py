@@ -45,7 +45,9 @@ def auth_user(request):
   myandrew = request.POST["username"]
   mypassword = request.POST["password"]
   wantedstr = request.POST["wanted"]
-  want = map (lambda x: int(x), ("".join(wantedstr.split())).split(","))
+  want = []
+  if wantedstr is not "":
+    want = map (lambda x: int(x), ("".join(wantedstr.split())).split(","))
   if cmu_auth.myauth(myandrew, mypassword) is not None:
     user = authenticate(username=myandrew, password=myandrew)
     if user is None:
