@@ -22,7 +22,7 @@ def index(request, optargs={}):
     user = request.user
   else:
     return HttpResponseRedirect(reverse('login'))
-  return render('puzzle/student_hub.html')
+  return render(request,'puzzle/student_hub.html')
 
 def login_view(request):
   return render(request, 'puzzle/login.html', {})
