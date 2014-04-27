@@ -37,5 +37,5 @@ def fixDict(d):
 	with open("dict.txt", "w") as myfile:
          myfile.write(repr(d))
 
-
+#fixDict(s)
 #17619
