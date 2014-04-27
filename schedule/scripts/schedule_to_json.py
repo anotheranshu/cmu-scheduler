@@ -18,8 +18,10 @@ def getJsonVals(courses):
 # 1 = ECE
 def getJson(USERNAME, PASSWORD, major):
     courses = cs_course_giver.giveCoursesForUser(USERNAME, PASSWORD, major)
-    thresholdHrs = 35
+    #courses = [15451, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
+    thresholdHrs = 60
     #f = open('flare.json', 'w')
+    print courses
     print graph.restSchedule(courses, thresholdHrs)
     s = getJsonVals(map (lambda x : list(x), graph.restSchedule(courses, thresholdHrs)))
     #f.write(s)
