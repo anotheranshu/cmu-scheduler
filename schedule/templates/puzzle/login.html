@@ -30,6 +30,8 @@ Tartan Scheduler Login
 			{% csrf_token %}
 			Andrew ID: <input type="text" name="username"><br />
 			Password: <input type="password" name="password"><br />
+      Put classes you want to take here, separated by commas.  For example: 15851,15852,15853<br />
+      Wanted Classes: <input type="text" name="wanted"><br />
 			<button class="btn btn-success" id="submit" type="submit" value="login">Sign in</button>
 			<input type="hidden" name="next" value="{{ next }}" />
 		</form>	
