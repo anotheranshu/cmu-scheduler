@@ -44,13 +44,15 @@ def display_activity(request, pnum):
 def auth_user(request):
   myandrew = request.POST["username"]
   mypassword = request.POST["password"]
+  wantedstr = request.POST["wanted"]
+  want = map (lambda x: int(x), ("".join(wantedstr.split())).split(","))
   if cmu_auth.myauth(myandrew, mypassword) is not None:
     user = authenticate(username=myandrew, password=myandrew)
     if user is None:
       make_student(myandrew, mypassword)
       user = authenticate(username=myandrew, password=myandrew)
     login(request, user)
-    return render(request, 'puzzle/student_hub.html', {"myjson": getJson(myandrew, mypassword, 0)})
+    return render(request, 'puzzle/student_hub.html', {"myjson": getJson(myandrew, mypassword, 0, wanted=want)})
   return render(request, 'puzzle/login.html')
   
       
