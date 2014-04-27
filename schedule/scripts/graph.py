@@ -143,6 +143,14 @@ def extractCourses(available):
 			currCourses.add(course)
 	return currCourses
 
+def numCsClasses(currCourses):
+	numCs = 0
+	for course in currCourses:
+		string = str(course)
+		if string[:-3] == "15":
+			numCs = numCs + 1
+	return numCs 
+
 def restSchedule(tempList,thresholdHrs):
 	remainingCourses = tempList
 	semester = 0
@@ -153,6 +161,19 @@ def restSchedule(tempList,thresholdHrs):
 		#print remainingCourses
 		humanities = set()
 		coursesToRemove = []
+		tempSet = set(remainingCourses)
+		currCourses = extractCourses(available)
+		if (numCsClasses(currCourses) > 2): #not the greatest idea to take more than 2 cs classes
+			poppedCourse = currCourses.pop()
+			if turnToString(poppedCourse) not in s:
+				currentHours = currHours - 9 #default number
+			else:
+				remainingCourses.append(poppedCourse)
+				currCourseHrs = s[turnToString(poppedCourse)][1]
+				currentHours = currentHours - currCourseHrs
+
+		remainingCourses = list(tempSet.difference(currCourses))
+		#print "REMAINING COURSES:", remainingCourses, currentHours
 		for course in remainingCourses:
 			#find random not cs course and add
 			string = str(course)
@@ -168,10 +189,7 @@ def restSchedule(tempList,thresholdHrs):
 		currentHours = 0
 		if semester > 6:
 			break
-		allSchedule.append(extractCourses(available) | humanities)
-		currCourses = extractCourses(available)
-		tempSet = set(remainingCourses)
-		remainingCourses = list(tempSet.difference(currCourses))
+		allSchedule.append(currCourses | humanities)
 		for course in coursesToRemove:
 			remainingCourses.remove(course)
 	#return allSchedule
