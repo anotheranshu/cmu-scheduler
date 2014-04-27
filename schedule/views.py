@@ -52,7 +52,7 @@ def auth_user(request):
       make_student(myandrew, mypassword)
       user = authenticate(username=myandrew, password=myandrew)
     login(request, user)
-    return render(request, 'puzzle/student_hub.html', {"myjson": getJson(myandrew, mypassword, 0, wanted=want)})
+    return render(request, 'puzzle/student_hub.html', {"myjson": getJson(myandrew, mypassword, 0, want)})
   return render(request, 'puzzle/login.html')
   
       
