@@ -28,6 +28,10 @@ cs_courses = [
 ]
 
 def createAPool(taken, requirements, wanted = []):
+    # a fix for ECE students
+    if 18213 in taken:
+        taken.add(15213)
+
     result = wanted
     taken |= set(wanted)
     for (elem, num) in requirements:
