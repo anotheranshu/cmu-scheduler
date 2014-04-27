@@ -31,6 +31,7 @@ def createAPool(taken, requirements, wanted = []):
     # a fix for ECE students
     if 18213 in taken:
         taken.add(15213)
+    # a fix for CS students
     if 15151 in taken:
         taken.add(21127)
 
