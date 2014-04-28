@@ -23,8 +23,8 @@ def getJsonVals(courses):
 # 0 = CS
 # 1 = ECE
 def getJson(USERNAME, PASSWORD, major, wanted=[]):
-    #courses = cs_course_giver.giveCoursesForUser(USERNAME, PASSWORD, major, wanted)
-    courses = [15214, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
+    courses = cs_course_giver.giveCoursesForUser(USERNAME, PASSWORD, major, wanted)
+    # courses = [15214, 15453, 15317, 15410, 15291, 1620, 88205, 79207, 79226]
     thresholdHrs = 60
     #f = open('flare.json', 'w')
     # print courses
