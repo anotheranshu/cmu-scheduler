@@ -1,5 +1,6 @@
 from lxml import html
 import requests
+from django.conf import settings
 
 f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
 
