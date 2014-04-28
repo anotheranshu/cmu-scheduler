@@ -1,16 +1,17 @@
 from lxml import html
 import requests
+from django.conf import settings
 
-f = open("dict.txt", 'rb')
+f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
 
 s =  eval(f.read())
 
 def getCourseDescriptionPreReqs(cid,semester):
 	title = ""
 	if semester == "F14":
-		fileRead = open('schedule.txt', 'rb')
+		fileRead = open(settings.PROJECT_PATH + '/schedule/scripts/schedule.txt', 'rb')
 	else:
-		fileRead = open('scheduleSpring.txt','rb')
+		fileRead = open(settings.PROJECT_PATH + '/schedule/scripts/scheduleSpring.txt','rb')
 	for line in fileRead:
 		infoList = line.split('\t')
 		if cid == infoList[0]:
