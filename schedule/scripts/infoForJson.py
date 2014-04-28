@@ -9,9 +9,9 @@ s =  eval(f.read())
 def getCourseDescriptionPreReqs(cid,semester):
 	title = ""
 	if semester == "F14":
-		fileRead = open('schedule.txt', 'rb')
+		fileRead = open(settings.PROJECT_PATH + 'schedule.txt', 'rb')
 	else:
-		fileRead = open('scheduleSpring.txt','rb')
+		fileRead = open(settings.PROJECT_PATH + 'scheduleSpring.txt','rb')
 	for line in fileRead:
 		infoList = line.split('\t')
 		if cid == infoList[0]:
