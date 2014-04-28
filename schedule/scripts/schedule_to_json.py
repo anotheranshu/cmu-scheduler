@@ -6,6 +6,7 @@ import cs_course_giver
 def getJsonVals(courses):
     result = []
     for year in xrange(len(courses)):
+        
         result += [{"name" : str(year), \
         "children" : [{"name": str(elem), "size": 3938} \
         for elem in courses[year]]}]
