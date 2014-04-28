@@ -1,7 +1,7 @@
 from lxml import html
 import requests
 
-f = open("dict.txt", 'rb')
+f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
 
 s =  eval(f.read())
 
