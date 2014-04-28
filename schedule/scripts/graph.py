@@ -4,6 +4,7 @@ from django.conf import settings
 #import cs_course_giver
 
 f = open(settings.PROJECT_PATH + "/schedule/scripts/dict.txt", 'rb')
+#f = open("dict.txt", 'rb')
 
 s =  eval(f.read())
 #for key in s:
@@ -25,6 +26,8 @@ def noPreReqs(cid,tempList):
 	if cid not in s:
 		return True
 	tempPrereq = s[cid][9] #9 is prereqs
+	print "tempPreReq",tempPrereq
+	print "cid", cid
 
 	finalPrereq = getCourses.prereqs(tempPrereq)
 	#print finalPrereq
@@ -197,6 +200,9 @@ def restSchedule(tempList,thresholdHrs):
 	return allSchedule
 
 
+#courses = [15214]
+#print restSchedule(courses, 60)
+print getCourses.prereqs("(15121 or 15122) and (21127 or 15151)")
 #returnNoPreReqs(tempList)
 #findUnits()
 # restSchedule(tempList)
