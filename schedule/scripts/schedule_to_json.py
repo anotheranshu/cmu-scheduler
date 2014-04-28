@@ -28,3 +28,5 @@ def getJson(USERNAME, PASSWORD, major, wanted=[]):
     s = getJsonVals(map (lambda x : list(x), graph.restSchedule(courses, thresholdHrs)))
     #f.write(s)
     return s
+
+print get
