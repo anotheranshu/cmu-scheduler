@@ -9,10 +9,11 @@ def getJsonVals(courses):
 
     result = []
     for year in xrange(len(courses)):
+        preres = []
         for elem in courses[year]:
             (des, hrs, name) = infoForJson.getCourseInfo(str(elem))
-            result += [{"name" : semesters[year], \
-            "children" : [{"name": str(elem) + " - " + name, "children" : [{"name" : "Hours per week: " + str(hrs) + " -- Description: " + des, "size": 3938}], "size": 3938}]}]
+            preres += [{"name": str(elem) + " - " + name, "children" : [{"name" : "Hours per week: " + str(hrs) + " -- Description: " + des, "size": 3938}]
+        result += [{"name" : semesters[year], "children" : preres, "size": 3938}]}]
 
     return json.dumps({"name" : "schedule", "children" : result}, \
                       sort_keys=False, indent=4, separators=(',', ': '))
