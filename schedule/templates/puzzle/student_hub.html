@@ -32,7 +32,7 @@ path.link {
 
 {% block content %}
 {% autoescape off %}
-{{ myjson }}
+<!-- {{ myjson }} -->
 <div id="message">
 {% if messages %}
 {% for message in messages %}
@@ -46,7 +46,7 @@ path.link {
   <div id="body">
       <div id="footer">
         Schedule for next few semesters
-        <div class="hint">You can refresh the page to get a different schedule</div>
+        <div class="hint">You can re-login to get a different schedule</div>
       </div>
     </div>
     <script type="text/javascript">
