@@ -12,6 +12,7 @@ def getJsonVals(courses):
         preres = []
         for elem in courses[year]:
             (des, hrs, name) = infoForJson.getCourseInfo(str(elem))
+            hrs = hrs if hrs != None else "N/A"
             preres += [{"name": str(elem) + " - " + name, "children" : [{"name" : "Hours per week: " + str(hrs) + " -- Description: " + des, "size": 3938}]}]
 
         result += [{"name" : semesters[year], "children" : preres, "size": 3938}]
